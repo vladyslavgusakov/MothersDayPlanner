@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BFD344ED6D725CEC5C342E6 /* libPods-MothersDayPlanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E0C29710A9A538804CF58F /* libPods-MothersDayPlanner.a */; };
+		43C3C05E1CEB8D7A00E9BC84 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */; };
 		B35DEBAD1CDBCBAF0069E358 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAC1CDBCBAF0069E358 /* next.png */; };
 		B35DEBAF1CDBCE440069E358 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAE1CDBCE440069E358 /* back.png */; };
 		B35DEBB21CDBCEA60069E358 /* AddServiceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35DEBB11CDBCEA60069E358 /* AddServiceTableViewController.m */; };
@@ -38,6 +39,9 @@
 
 /* Begin PBXFileReference section */
 		3C31F2C38DDE8045B70C7470 /* Pods-MothersDayPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MothersDayPlanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MothersDayPlanner/Pods-MothersDayPlanner.debug.xcconfig"; sourceTree = "<group>"; };
+		43ACD1AE1CEA839A005056EA /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		43C3C05C1CEB8D7A00E9BC84 /* DataAccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
+		43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
 		5342A068D6C06F9BD9C62F6D /* Pods-MothersDayPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MothersDayPlanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-MothersDayPlanner/Pods-MothersDayPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		A5E0C29710A9A538804CF58F /* libPods-MothersDayPlanner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MothersDayPlanner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35DEBAC1CDBCBAF0069E358 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
@@ -60,7 +64,6 @@
 		B35DEBC91CDBF3A40069E358 /* liq.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = liq.jpg; sourceTree = "<group>"; };
 		B35DEBCB1CDBF4110069E358 /* hair.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hair.jpg; sourceTree = "<group>"; };
 		B35DEBCD1CDBF6300069E358 /* jew.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = jew.jpg; sourceTree = "<group>"; };
-		B368F9CC1CEA7B1E0068F7E2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B3A4230C1CDBABDB006E0D1B /* MothersDayPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MothersDayPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A423101CDBABDB006E0D1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B3A423121CDBABDB006E0D1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,6 +95,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4324D64C1CEA927000EB688A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4324D6501CEA92B200EB688A /* CustomControllers */,
+				B3A423281CDBB8F2006E0D1B /* MainTableViewController.h */,
+				B3A423291CDBB8F2006E0D1B /* MainTableViewController.m */,
+				B35DEBB01CDBCEA60069E358 /* AddServiceTableViewController.h */,
+				B35DEBB11CDBCEA60069E358 /* AddServiceTableViewController.m */,
+				B35DEBB51CDBD8DB0069E358 /* MapsViewController.h */,
+				B35DEBB61CDBD8DB0069E358 /* MapsViewController.m */,
+				B35DEBB81CDBDB2E0069E358 /* DetailsViewController.h */,
+				B35DEBB91CDBDB2E0069E358 /* DetailsViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		4324D64D1CEA927200EB688A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B3A423181CDBABDB006E0D1B /* Main.storyboard */,
+				B3A4231D1CDBABDB006E0D1B /* LaunchScreen.storyboard */,
+				B35DEBC51CDBF0210069E358 /* CustomPinView.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4324D64E1CEA927400EB688A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43C3C05C1CEB8D7A00E9BC84 /* DataAccessObject.h */,
+				43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */,
+				B3A4232E1CDBB996006E0D1B /* Service.h */,
+				B3A4232F1CDBB996006E0D1B /* Service.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4324D64F1CEA928000EB688A /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				B3A423121CDBABDB006E0D1B /* AppDelegate.h */,
+				B3A423131CDBABDB006E0D1B /* AppDelegate.m */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		4324D6501CEA92B200EB688A /* CustomControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B3A4232B1CDBB90B006E0D1B /* CustomCell.h */,
+				B3A4232C1CDBB90B006E0D1B /* CustomCell.m */,
+				B35DEBBF1CDBEFE10069E358 /* CustomMarker.h */,
+				B35DEBC01CDBEFE10069E358 /* CustomMarker.m */,
+				B35DEBC11CDBEFE10069E358 /* CustomPinView.h */,
+				B35DEBC21CDBEFE10069E358 /* CustomPinView.m */,
+			);
+			name = CustomControllers;
+			sourceTree = "<group>";
+		};
 		A7F81D1EC3CCEA8C6A5BAA24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,27 +183,11 @@
 		B3A4230E1CDBABDB006E0D1B /* MothersDayPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				B368F9CC1CEA7B1E0068F7E2 /* Constants.h */,
-				B3A423121CDBABDB006E0D1B /* AppDelegate.h */,
-				B3A423131CDBABDB006E0D1B /* AppDelegate.m */,
-				B3A423181CDBABDB006E0D1B /* Main.storyboard */,
-				B3A423281CDBB8F2006E0D1B /* MainTableViewController.h */,
-				B3A423291CDBB8F2006E0D1B /* MainTableViewController.m */,
-				B3A4232B1CDBB90B006E0D1B /* CustomCell.h */,
-				B3A4232C1CDBB90B006E0D1B /* CustomCell.m */,
-				B35DEBB01CDBCEA60069E358 /* AddServiceTableViewController.h */,
-				B35DEBB11CDBCEA60069E358 /* AddServiceTableViewController.m */,
-				B35DEBB51CDBD8DB0069E358 /* MapsViewController.h */,
-				B35DEBB61CDBD8DB0069E358 /* MapsViewController.m */,
-				B35DEBC51CDBF0210069E358 /* CustomPinView.xib */,
-				B35DEBBF1CDBEFE10069E358 /* CustomMarker.h */,
-				B35DEBC01CDBEFE10069E358 /* CustomMarker.m */,
-				B35DEBC11CDBEFE10069E358 /* CustomPinView.h */,
-				B35DEBC21CDBEFE10069E358 /* CustomPinView.m */,
-				B35DEBB81CDBDB2E0069E358 /* DetailsViewController.h */,
-				B35DEBB91CDBDB2E0069E358 /* DetailsViewController.m */,
-				B3A4232E1CDBB996006E0D1B /* Service.h */,
-				B3A4232F1CDBB996006E0D1B /* Service.m */,
+				43ACD1AE1CEA839A005056EA /* Constants.h */,
+				4324D64E1CEA927400EB688A /* Model */,
+				4324D64D1CEA927200EB688A /* View */,
+				4324D64C1CEA927000EB688A /* Controller */,
+				4324D64F1CEA928000EB688A /* Delegate */,
 				B3A4231B1CDBABDB006E0D1B /* Assets.xcassets */,
 				B3A423261CDBB75A006E0D1B /* spa.jpg */,
 				B3A423311CDBBE97006E0D1B /* callback_filled.png */,
@@ -155,7 +201,6 @@
 				B35DEBC91CDBF3A40069E358 /* liq.jpg */,
 				B35DEBCB1CDBF4110069E358 /* hair.jpg */,
 				B35DEBCD1CDBF6300069E358 /* jew.jpg */,
-				B3A4231D1CDBABDB006E0D1B /* LaunchScreen.storyboard */,
 				B3A423201CDBABDB006E0D1B /* Info.plist */,
 				B3A4230F1CDBABDB006E0D1B /* Supporting Files */,
 			);
@@ -213,6 +258,7 @@
 				TargetAttributes = {
 					B3A4230B1CDBABDB006E0D1B = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = PU9PMM99H2;
 					};
 				};
 			};
@@ -322,6 +368,7 @@
 				B3A4232D1CDBB90B006E0D1B /* CustomCell.m in Sources */,
 				B35DEBC31CDBEFE10069E358 /* CustomMarker.m in Sources */,
 				B3A4232A1CDBB8F2006E0D1B /* MainTableViewController.m in Sources */,
+				43C3C05E1CEB8D7A00E9BC84 /* DataAccessObject.m in Sources */,
 				B35DEBBA1CDBDB2E0069E358 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +484,7 @@
 			baseConfigurationReference = 3C31F2C38DDE8045B70C7470 /* Pods-MothersDayPlanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MothersDayPlanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -450,6 +498,7 @@
 			baseConfigurationReference = 5342A068D6C06F9BD9C62F6D /* Pods-MothersDayPlanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MothersDayPlanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

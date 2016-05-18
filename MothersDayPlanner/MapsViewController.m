@@ -11,6 +11,7 @@
 #import "CustomPinView.h"
 #import "Service.h"
 #import "Constants.h"
+#import "DetailsViewController.h"
 @import GoogleMaps;
 
 @interface MapsViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
@@ -43,7 +44,6 @@
     [self getCurrentLocation];
     self.mapView.myLocationEnabled = YES;
     self.mapView.delegate          = self;
-//    self.selectedService = @"spa";
 }
 
 #pragma mark - Location
@@ -58,7 +58,7 @@
 - (void)fetchPlacesBasedOnServiceType {
     NSURLSession *session = [NSURLSession sharedSession];
     NSURL        *url     = [NSURL URLWithString:[NSString stringWithFormat
-                                                  :@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%lf,%lf&radius=6000&keyword=%@&key=%@",
+                                                  :@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%lf,%lf&radius=6000&types=%@&key=%@",
                                                   self.coordinate.latitude,
                                                   self.coordinate.longitude,
                                                   self.selectedService,
@@ -95,7 +95,7 @@
         } else {
             dispatch_async(dispatch_get_main_queue(),^{
                 self.dictionaryOfPlaceSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                //                    NSLog(@"%@",results);
+                //                NSLog(@"%@",self.dicitonaryOfPlaceResults);
                 [self parseAndPush];
                 [self performSegueWithIdentifier:@"showDetailView" sender:nil];
             });
@@ -113,7 +113,7 @@
 }
 
 - (void)mapView:(GMSMapView*)mapView didTapInfoWindowOfMarker:(CustomMarker*)marker {
-    self.placeToSearch = marker.place_id;
+    self.placeToSearch = marker.placeId;
     NSLog(@"PLACE ID == %@",self.placeToSearch);
     [self fetchInfoBasedForSelectedPlace];
 }
@@ -166,13 +166,13 @@
 
 - (void)parseAndPin {
     NSDictionary *result    = [self.dictionaryOfSearchResults objectForKey:@"results"];
-    NSArray *tempGeo   = [result valueForKey:@"geometry"];
-    NSArray *tempLoc   = [tempGeo valueForKey:@"location"];
+    NSArray *tempGeo        = [result valueForKey:@"geometry"];
+    NSArray *tempLoc        = [tempGeo valueForKey:@"location"];
     NSArray *nameArray      = [result valueForKey:@"name"];
     NSArray *iconArray      = [result valueForKey:@"icon"];
     NSArray *latitudeArray  = [tempLoc valueForKey:@"lat"];
     NSArray *longitudeArray = [tempLoc valueForKey:@"lng"];
-    NSArray *place_idArray =  [result valueForKey:@"place_id"];
+    NSArray *place_idArray  =  [result valueForKey:@"place_id"];
     
     for (int i = 0 ; i < latitudeArray.count; i++) {
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[[latitudeArray objectAtIndex:i] doubleValue]
@@ -185,7 +185,7 @@
         searchMarker.snippet       = @"NYC";
         searchMarker.image         = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:string]]];
         searchMarker.icon          = [GMSMarker markerImageWithColor:[UIColor purpleColor]];
-        searchMarker.place_id      = [place_idArray objectAtIndex:i];
+        searchMarker.placeId      = [place_idArray objectAtIndex:i];
         
         self.arrayOfSearchMarkers = [NSMutableArray arrayWithObject:searchMarker];
         for (CustomMarker *pin in self.arrayOfSearchMarkers) {
@@ -196,19 +196,22 @@
 
 -(void)parseAndPush {
     NSDictionary *dict = [self.dictionaryOfPlaceSearchResults objectForKey:@"result"];
+    //    NSLog(@"%@",dict);
     self.serviceInfo = [Service new];
-    self.serviceInfo.formatted_address          = [dict valueForKey:@"formatted_address"];
-    self.serviceInfo.formatted_phone_number     = [dict valueForKey:@"formatted_phone_number"];
-    self.serviceInfo.name                       = [dict valueForKey:@"name"];
-    self.serviceInfo.international_phone_number = [dict valueForKey:@"international_phone_number"];
-    //    NSLog(@"phone number = %@, address = %@, name = %@, international phone num = %@",service.formatted_phone_number, service.formatted_address, service.name, service.international_phone_number);
+    self.serviceInfo.formattedAddress         = [dict valueForKey:@"formatted_address"];
+    self.serviceInfo.formattedPhoneNumber     = [dict valueForKey:@"formatted_phone_number"];
+    self.serviceInfo.placeName                = [dict valueForKey:@"name"];
+    self.serviceInfo.internationalPhoneNumber = [dict valueForKey:@"international_phone_number"];
+    self.serviceInfo.serviceImage             = self.serviceImage;
+    self.serviceInfo.website                  = [dict valueForKey:@"website"];
 }
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-    
+    if ([segue.identifier isEqualToString:@"showDetailView"]) {
+        DetailsViewController *detailView = (DetailsViewController *)segue.destinationViewController;
+        detailView.service = self.serviceInfo;
+    }
 }
 
 @end

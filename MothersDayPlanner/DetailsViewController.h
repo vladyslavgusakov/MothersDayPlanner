@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Service.h"
 
 @interface DetailsViewController : UIViewController
+
+@property (nonatomic, strong) Service *service;
 
 @end

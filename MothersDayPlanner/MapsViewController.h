@@ -11,5 +11,6 @@
 @interface MapsViewController : UIViewController
 
 @property (nonatomic, strong) NSString *selectedService;
+@property (nonatomic, strong) NSString *serviceImage;
 
 @end
