@@ -10,9 +10,14 @@
 
 @interface Service : NSObject
 
-@property (nonatomic, strong) NSString *formatted_address;
-@property (nonatomic, strong) NSString *formatted_phone_number;
-@property (nonatomic, strong) NSString *international_phone_number;
-@property (nonatomic, strong) NSString *name; //place name
+@property (nonatomic, strong) NSString *formattedAddress;
+@property (nonatomic, strong) NSString *formattedPhoneNumber;
+@property (nonatomic, strong) NSString *internationalPhoneNumber;
+@property (nonatomic, strong) NSString *placeName;
+@property (nonatomic, strong) NSString *serviceImage;
+@property (nonatomic, strong) NSString *fromTime;
+@property (nonatomic, strong) NSString *toTime;
+@property (nonatomic, strong) NSString *note;
+@property (nonatomic, strong) NSString *website; //can maybe use to display website 
 
 @end

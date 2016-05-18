@@ -11,6 +11,6 @@
 @interface CustomMarker : GMSMarker
 
 @property (nonatomic, strong) UIImage  *image;
-@property (nonatomic, strong) NSString *place_id;
+@property (nonatomic, strong) NSString *placeId;
 
 @end

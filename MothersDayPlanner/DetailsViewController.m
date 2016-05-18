@@ -7,91 +7,81 @@
 //
 
 #import "DetailsViewController.h"
+#import "DataAccessObject.h"
+@import GoogleMaps;
 
 @interface DetailsViewController ()
+
+#pragma mark - IBActions
 - (IBAction)save:(id)sender;
 - (IBAction)fromChoose:(id)sender;
 - (IBAction)toChoose:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *fromTime;
-@property (weak, nonatomic) IBOutlet UILabel *toTime;
-@property (weak, nonatomic) IBOutlet UITextField *noteTextField;
 - (IBAction)doneButtonAction:(id)sender;
 
+#pragma mark - IBOutlets
+@property (weak, nonatomic) IBOutlet UILabel      *fromTime;
+@property (weak, nonatomic) IBOutlet UILabel      *toTime;
+@property (weak, nonatomic) IBOutlet UITextField  *noteTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UIView *dateView;
+@property (weak, nonatomic) IBOutlet UIView       *dateView;
+@property (weak, nonatomic) IBOutlet UIButton     *choose1;
+@property (weak, nonatomic) IBOutlet UIButton     *choose2;
 
-@property (weak, nonatomic) IBOutlet UIButton *choose1;
-@property (weak, nonatomic) IBOutlet UIButton *choose2;
+#pragma mark - Miscellaneous
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, getter=isFrom) BOOL from;
+@property (nonatomic, strong) DataAccessObject *dao;
+
 
 @end
 
-@implementation DetailsViewController {
-    UIDatePicker *datepicker;
-    NSDateFormatter *df;
-    BOOL isFrom;
-    NSUserDefaults *defaults;
-}
+@implementation DetailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-     df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"hh:mm a"]; // from here u can change format..
+    self.dao = [DataAccessObject sharedInstance];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"hh:mm a"]; // from here u can change format..
     self.dateView.hidden = YES;
     
-     defaults = [NSUserDefaults standardUserDefaults];
-
+    NSLog(@"new object to be saved - > %@, %@, %@, %@, %@", self.service.formattedAddress, self.service.formattedPhoneNumber, self.service.placeName, self.service.internationalPhoneNumber, self.service.serviceImage);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)save:(id)sender {
+    self.service.fromTime = self.fromTime.text;
+    self.service.toTime   = self.toTime.text;
+    self.service.note     = self.noteTextField.text;
     
-    [defaults setObject:self.fromTime.text forKey:@"from"];
-    [defaults setObject:self.toTime.text forKey:@"to"];
-    [defaults setObject:self.noteTextField.text forKey:@"note"];
-
-    [defaults synchronize];
+    NSLog(@"object - > %@, %@, %@, %@, %@, %@, %@, %@, %@", self.service.formattedAddress, self.service.formattedPhoneNumber, self.service.placeName, self.service.internationalPhoneNumber, self.service.serviceImage, self.service.fromTime, self.service.toTime, self.service.note, self.service.website);
     
+    [self.dao.serviceList addObject:self.service];
+    [self.dao save];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)fromChoose:(id)sender {
-    isFrom = YES;
+    self.from            = YES;
     self.dateView.hidden = NO;
 }
 
 - (IBAction)toChoose:(id)sender {
-    isFrom = NO;
+    self.from            = NO;
     self.dateView.hidden = NO;
 }
 
 
 - (IBAction)doneButtonAction:(id)sender {
-    if (isFrom == YES) {
-        self.fromTime.text = [df stringFromDate:self.datePicker.date];
-    }
-    else {
-        self.toTime.text = [df stringFromDate:self.datePicker.date];
+    if (self.isFrom == YES) {
+        self.fromTime.text = [self.dateFormatter stringFromDate:self.datePicker.date];
+    } else {
+        self.toTime.text = [self.dateFormatter stringFromDate:self.datePicker.date];
     }
     
     self.dateView.hidden = YES;
-    
-    
-    
 }
+
 @end

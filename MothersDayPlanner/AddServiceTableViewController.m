@@ -11,21 +11,25 @@
 
 @interface AddServiceTableViewController ()
 
+@property (nonatomic, strong) NSDictionary *serviceImages;
+@property (nonatomic, strong) NSArray      *servicesList;
+
 @end
 
-@implementation AddServiceTableViewController {
-    NSArray *servicesList;
-}
-
+@implementation AddServiceTableViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
+//    servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
+    self.servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
+    
+#warning need one image per item in the servicesList above
+    //TODO: Add more images
+    self.serviceImages = @{@"spa": @"spa.jpg", @"florist": @"flowers.jpg", @"liquor_store": @"liq.jpg", @"hair_care": @"hair.jpg", @"jewelry_store": @"jew.jpg"};
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -35,68 +39,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return servicesList.count;
+    return self.servicesList.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.textLabel.text = [[servicesList[indexPath.row] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
-    cell.imageView.image = [UIImage imageNamed:servicesList[indexPath.row]];
+//    cell.textLabel.text = [[servicesList[indexPath.row] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
+//    cell.imageView.image = [UIImage imageNamed:servicesList[indexPath.row]];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.textLabel.text = [[self.servicesList[indexPath.row] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
     
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    MapsViewController *mapsVC = [segue destinationViewController];
-    
-    UITableViewCell *cellSelected = (UITableViewCell *) sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cellSelected];
-    mapsVC.selectedService = servicesList[indexPath.row];
-    
+    MapsViewController *mapsVC = (MapsViewController*)segue.destinationViewController;
+    NSIndexPath *indexPath     = [self.tableView indexPathForSelectedRow];
+    mapsVC.selectedService     = self.servicesList[indexPath.row];
+    mapsVC.serviceImage        = [self.serviceImages valueForKey:self.servicesList[indexPath.row]];
 }
 
 
