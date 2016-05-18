@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSDictionary *serviceImages;
 @property (nonatomic, strong) NSArray      *servicesList;
 
+
 @end
 
 @implementation AddServiceTableViewController
@@ -23,9 +24,17 @@
 //    servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
     self.servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
     
-#warning need one image per item in the servicesList above
     //TODO: Add more images
-    self.serviceImages = @{@"spa": @"spa_main.jpg", @"florist": @"flowers.jpg", @"liquor_store": @"liq.jpg", @"hair_care": @"hair.jpg", @"jewelry_store": @"jew.jpg"};
+    self.serviceImages = @{
+                           @"spa": @"spa_main.jpg",
+                           @"florist": @"flowers.jpg",
+                           @"shoe_store" : @"shoe_store_main.png",
+                           @"beauty_salon" : @"beauty_main.png",
+                           @"jewelry_store": @"jew.jpg",
+                           @"liquor_store": @"liq.jpg",
+                           @"hair_care": @"hair.jpg",
+                           @"clothing_store" : @"clothing_main.jpg"
+                           };
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,10 +56,10 @@
     
     // Configure the cell...
 //    cell.textLabel.text = [[servicesList[indexPath.row] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
-//    cell.imageView.image = [UIImage imageNamed:servicesList[indexPath.row]];
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.textLabel.text = [[self.servicesList[indexPath.row] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
-    
+    cell.imageView.image = [UIImage imageNamed:self.servicesList[indexPath.row]];
     return cell;
 }
 

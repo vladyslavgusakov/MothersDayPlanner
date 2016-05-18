@@ -22,9 +22,11 @@
 
 #pragma mark - IBOutlets
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *MapsContainer;
+@property (weak, nonatomic) IBOutlet UIView *ListContainer;
 
 #pragma mark - IBActions
-- (IBAction)switchView:(id)sender;
+- (IBAction)switchValue:(id)sender;
 
 #pragma mark - Miscellaneous
 @property (nonatomic, strong) NSDictionary     *dictionaryOfSearchResults;
@@ -41,9 +43,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getCurrentLocation];
-    self.mapView.myLocationEnabled = YES;
-    self.mapView.delegate          = self;
+//    [self getCurrentLocation];
+//    self.mapView.myLocationEnabled = YES;
+//    self.mapView.delegate          = self;
+    
+    self.mapView.hidden = YES;
+    self.MapsContainer.hidden = NO;
+    self.ListContainer.hidden = YES;
 }
 
 #pragma mark - Location
@@ -214,4 +220,13 @@
     }
 }
 
+- (IBAction)switchValue:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        self.MapsContainer.hidden = NO;
+        self.ListContainer.hidden = YES;
+    } else {
+        self.MapsContainer.hidden = YES;
+        self.ListContainer.hidden = NO;
+    }
+}
 @end
