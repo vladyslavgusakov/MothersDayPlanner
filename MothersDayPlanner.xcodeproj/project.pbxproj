@@ -28,7 +28,7 @@
 		B3A4231A1CDBABDB006E0D1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A423181CDBABDB006E0D1B /* Main.storyboard */; };
 		B3A4231C1CDBABDB006E0D1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A4231B1CDBABDB006E0D1B /* Assets.xcassets */; };
 		B3A4231F1CDBABDB006E0D1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A4231D1CDBABDB006E0D1B /* LaunchScreen.storyboard */; };
-		B3A423271CDBB75A006E0D1B /* spa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3A423261CDBB75A006E0D1B /* spa.jpg */; };
+		B3A423271CDBB75A006E0D1B /* spa_main.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3A423261CDBB75A006E0D1B /* spa_main.jpg */; };
 		B3A4232A1CDBB8F2006E0D1B /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A423291CDBB8F2006E0D1B /* MainTableViewController.m */; };
 		B3A4232D1CDBB90B006E0D1B /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4232C1CDBB90B006E0D1B /* CustomCell.m */; };
 		B3A423301CDBB996006E0D1B /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4232F1CDBB996006E0D1B /* Service.m */; };
@@ -69,7 +69,7 @@
 		B3A4231B1CDBABDB006E0D1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3A4231E1CDBABDB006E0D1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3A423201CDBABDB006E0D1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3A423261CDBB75A006E0D1B /* spa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = spa.jpg; sourceTree = "<group>"; };
+		B3A423261CDBB75A006E0D1B /* spa_main.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = spa_main.jpg; sourceTree = "<group>"; };
 		B3A423281CDBB8F2006E0D1B /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		B3A423291CDBB8F2006E0D1B /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		B3A4232B1CDBB90B006E0D1B /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 				B3A4232E1CDBB996006E0D1B /* Service.h */,
 				B3A4232F1CDBB996006E0D1B /* Service.m */,
 				B3A4231B1CDBABDB006E0D1B /* Assets.xcassets */,
-				B3A423261CDBB75A006E0D1B /* spa.jpg */,
+				B3A423261CDBB75A006E0D1B /* spa_main.jpg */,
 				B3A423311CDBBE97006E0D1B /* callback_filled.png */,
 				B3A423331CDBC8EB006E0D1B /* add_rule.png */,
 				B35DEBAC1CDBCBAF0069E358 /* next.png */,
@@ -245,7 +245,7 @@
 				B35DEBB41CDBD5AB0069E358 /* save.png in Resources */,
 				B3A4231C1CDBABDB006E0D1B /* Assets.xcassets in Resources */,
 				B35DEBBE1CDBE6430069E358 /* note.png in Resources */,
-				B3A423271CDBB75A006E0D1B /* spa.jpg in Resources */,
+				B3A423271CDBB75A006E0D1B /* spa_main.jpg in Resources */,
 				B35DEBC81CDBF3800069E358 /* flowers.jpg in Resources */,
 				B35DEBAF1CDBCE440069E358 /* back.png in Resources */,
 				B35DEBCE1CDBF6300069E358 /* jew.jpg in Resources */,

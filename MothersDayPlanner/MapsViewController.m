@@ -58,7 +58,7 @@
 - (void)fetchPlacesBasedOnServiceType {
     NSURLSession *session = [NSURLSession sharedSession];
     NSURL        *url     = [NSURL URLWithString:[NSString stringWithFormat
-                                                  :@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%lf,%lf&radius=6000&keyword=%@&key=%@",
+                                                  :@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%lf,%lf&radius=6000&types=%@&key=%@",
                                                   self.coordinate.latitude,
                                                   self.coordinate.longitude,
                                                   self.selectedService,

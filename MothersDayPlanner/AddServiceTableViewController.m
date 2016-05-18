@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewerly_store", @"liquor_store", @"hair_care", @"clothing_store"];
+    servicesList = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +44,7 @@
     
     // Configure the cell...
     cell.textLabel.text = [[servicesList[indexPath.row] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
+    cell.imageView.image = [UIImage imageNamed:servicesList[indexPath.row]];
     
     return cell;
 }

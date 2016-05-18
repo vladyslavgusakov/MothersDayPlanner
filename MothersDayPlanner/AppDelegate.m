@@ -21,6 +21,7 @@
     // Override point for customization after application launch.
     
     [GMSServices provideAPIKey:iOSAPIKey];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed: 0.988 green: 0.353 blue: 0.451 alpha: 1]];
 
     return YES;
 }

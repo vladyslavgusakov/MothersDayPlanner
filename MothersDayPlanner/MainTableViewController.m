@@ -29,7 +29,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     defaults = [NSUserDefaults standardUserDefaults];
-    services = [NSMutableArray arrayWithArray:@[@"spa.jpg", @"flowers.jpg", @"liq.jpg", @"hair.jpg", @"jew.jpg"]];
+    services = [NSMutableArray arrayWithArray:@[@"spa_main.jpg", @"flowers.jpg", @"liq.jpg", @"hair.jpg", @"jew.jpg"]];
     names = @[@"SPA", @"FLORIST", @"LIQUOR STORE", @"HAIR CARE", @"JEWERLY"];
     
 
@@ -62,6 +62,7 @@
     // Configure the cell...
     cell.name.text = names[indexPath.row];
     cell.background.image = [UIImage imageNamed:services[indexPath.row]];
+    cell.background.clipsToBounds = YES;
     
     return cell;
 }
