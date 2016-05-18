@@ -22,11 +22,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="164.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spa.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-EM-8UX">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spa_main.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-EM-8UX">
                                             <rect key="frame" x="88" y="0.0" width="512" height="160"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SPA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6K-gh-pec">
-                                            <rect key="frame" x="96" y="65.5" width="536" height="28.5"/>
+                                            <rect key="frame" x="96" y="65" width="536" height="28.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="28.5" id="btc-SI-4VH"/>
                                             </constraints>
@@ -61,17 +61,17 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0C-z0-zSl">
-                                                    <rect key="frame" x="8" y="66" width="72" height="23.5"/>
+                                                    <rect key="frame" x="8" y="66" width="72" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="72" id="YmB-50-vNK"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
                                                     <color key="textColor" red="1" green="0.71568756286744439" blue="0.45535849361213598" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xp-gt-om4">
-                                                    <rect key="frame" x="8" y="98" width="72" height="23.5"/>
+                                                    <rect key="frame" x="8" y="95" width="72" height="23.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="72" id="HFz-sc-5XP"/>
                                                     </constraints>
@@ -81,11 +81,11 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhG-mG-W78">
-                                                    <rect key="frame" x="8" y="127" width="72" height="23.5"/>
+                                                    <rect key="frame" x="8" y="124" width="72" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="72" id="hg2-7d-LA1"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
                                                     <color key="textColor" red="1" green="0.71568756286744439" blue="0.45535849361213598" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
@@ -443,7 +443,7 @@
         <image name="next.png" width="96" height="96"/>
         <image name="note.png" width="104" height="104"/>
         <image name="save.png" width="104" height="104"/>
-        <image name="spa.jpg" width="1600" height="599"/>
+        <image name="spa_main.jpg" width="1600" height="599"/>
         <image name="time.png" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>

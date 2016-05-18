@@ -25,7 +25,7 @@
     
 #warning need one image per item in the servicesList above
     //TODO: Add more images
-    self.serviceImages = @{@"spa": @"spa.jpg", @"florist": @"flowers.jpg", @"liquor_store": @"liq.jpg", @"hair_care": @"hair.jpg", @"jewelry_store": @"jew.jpg"};
+    self.serviceImages = @{@"spa": @"spa_main.jpg", @"florist": @"flowers.jpg", @"liquor_store": @"liq.jpg", @"hair_care": @"hair.jpg", @"jewelry_store": @"jew.jpg"};
 }
 
 - (void)didReceiveMemoryWarning {
