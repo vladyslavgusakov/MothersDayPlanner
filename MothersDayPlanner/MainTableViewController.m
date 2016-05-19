@@ -61,7 +61,7 @@
 - (void)greetNewUser {
     if ([self isFirstLaunchEver]){
         NSLog(@"First Launch :)");
-        //        [self presentView];
+        [self presentView];
     }
 }
 
@@ -72,7 +72,6 @@
     }
 }
 
-//TODO: Re-Make greeting view xib.. it got deleted
 - (void)presentView {
     UIView *greet = [[[NSBundle mainBundle] loadNibNamed:@"GreetingView" owner:self options:kNilOptions] objectAtIndex:0];
     greet.center = self.view.center;
@@ -80,7 +79,7 @@
 }
 
 #pragma mark - CA Prompt
-#warning we can get rid of this if we want
+#warning we can get rid of this and/or adjust this
 - (void)animateLayer {
     if (self.dao.serviceList.count == 0) {
         [self createLayer];

@@ -15,79 +15,42 @@
 #import "ListContainerViewController.h"
 @import GoogleMaps;
 
-@interface MapsViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
-
-#pragma mark - Location
-@property (nonatomic, strong) CLLocationManager     *locationManager;
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@interface MapsViewController () <GMSMapViewDelegate>
 
 #pragma mark - IBOutlets
-@property (weak, nonatomic) IBOutlet GMSMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIView *MapsContainer;
 @property (weak, nonatomic) IBOutlet UIView *ListContainer;
 
 #pragma mark - IBActions
 - (IBAction)switchValue:(id)sender;
 
 #pragma mark - Miscellaneous
-@property (nonatomic, strong) NSDictionary     *dictionaryOfSearchResults;
-@property (nonatomic, strong) NSDictionary     *dicitonaryOfPlaceResults;
-@property (nonatomic, strong) NSMutableArray   *arrayOfSearchMarkers;
 @property (nonatomic, strong) NSDictionary     *dictionaryOfPlaceSearchResults;
 @property (nonatomic, strong) NSString         *placeToSearch;
 @property (nonatomic, strong) Service          *serviceInfo;
 
 @end
 
-
 @implementation MapsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getCurrentLocation];
+    [self setMapviewInitialSettings];
+}
+
+- (void) setMapviewInitialSettings {
     self.mapView.myLocationEnabled         = YES;
     self.mapView.settings.compassButton    = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.delegate                  = self;
-    self.mapView.hidden       = NO;
-    self.ListContainer.hidden = YES;
-}
-
-#pragma mark - Location
-- (void)getCurrentLocation {
-    [self.locationManager requestWhenInUseAuthorization];
-    self.locationManager.delegate        = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager startUpdatingLocation];
+    self.mapView.hidden                    = NO;
+    self.ListContainer.hidden              = YES;
+    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude zoom:15];
+    for (CustomMarker *pin in self.arrayOfSearchMarkers) { //drops pins on map
+        pin.map = self.mapView;
+    }
 }
 
 #pragma mark - API Requests
-- (void)fetchPlacesBasedOnServiceType {
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURL        *url     = [NSURL URLWithString:[NSString stringWithFormat
-                                                  :@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%lf,%lf&radius=6000&types=%@&key=%@",
-                                                  self.coordinate.latitude,
-                                                  self.coordinate.longitude,
-                                                  self.selectedService,
-                                                  serverKey
-                                                  ]];
-    
-    [[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data,
-                                                      NSURLResponse * _Nullable response,
-                                                      NSError * _Nullable error) {
-        if ( error ) {
-            NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
-            [self presentAlertToUser];
-        } else {
-            dispatch_async(dispatch_get_main_queue(),^{
-                self.dictionaryOfSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                //                NSLog(@"%@",self.dictionaryOfSearchResults);
-                [self parseAndPin];
-            });
-        }
-    }] resume];
-}
-
 - (void)fetchInfoBasedForSelectedPlace {
     NSLog(@"lat %lf, long %lf",self.coordinate.latitude, self.coordinate.longitude);
     NSURLSession *session = [NSURLSession sharedSession];
@@ -99,9 +62,9 @@
         if (error) {
             NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
         } else {
+
             dispatch_async(dispatch_get_main_queue(),^{
                 self.dictionaryOfPlaceSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                //                NSLog(@"%@",self.dicitonaryOfPlaceResults);
                 [self parseAndPush];
                 [self performSegueWithIdentifier:@"showDetailView" sender:nil];
             });
@@ -124,36 +87,6 @@
     [self fetchInfoBasedForSelectedPlace];
 }
 
-#pragma mark - CLLocation Manager Delegate
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocation *location = [locations lastObject];
-    self.coordinate      = location.coordinate;
-    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude zoom:15];
-    [self fetchPlacesBasedOnServiceType];
-    [self.locationManager stopUpdatingLocation];
-    self.locationManager = nil;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Error = %@, %@", error.localizedDescription, error.userInfo);
-    [self presentAlertToUser];
-}
-
-#pragma mark - Lazy Loading
-- (CLLocationManager*)locationManager {
-    if (!_locationManager) {
-        _locationManager = [[CLLocationManager alloc] init];
-    }
-    return _locationManager;
-}
-
-- (NSMutableArray *)arrayOfSearchMarkers {
-    if (!_arrayOfSearchMarkers) {
-        _arrayOfSearchMarkers = [[NSMutableArray alloc] init];
-    }
-    return _arrayOfSearchMarkers;
-}
-
 #pragma mark - Miscellaneous
 - (void)presentAlertToUser {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Please, try again." preferredStyle:UIAlertControllerStyleAlert];
@@ -165,39 +98,8 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)parseAndPin {
-    NSDictionary *result    = [self.dictionaryOfSearchResults objectForKey:@"results"];
-    NSArray *tempGeo        = [result valueForKey:@"geometry"];
-    NSArray *tempLoc        = [tempGeo valueForKey:@"location"];
-    NSArray *nameArray      = [result valueForKey:@"name"];
-    NSArray *iconArray      = [result valueForKey:@"icon"];
-    NSArray *latitudeArray  = [tempLoc valueForKey:@"lat"];
-    NSArray *longitudeArray = [tempLoc valueForKey:@"lng"];
-    NSArray *place_idArray  = [result valueForKey:@"place_id"];
-    
-    for (int i = 0 ; i < latitudeArray.count; i++) {
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[[latitudeArray objectAtIndex:i] doubleValue]
-                                                                longitude:[[longitudeArray objectAtIndex:i] doubleValue] zoom:12];
-        NSString *string = [NSString stringWithFormat:@"%@",[iconArray objectAtIndex:i]];
-        
-        CustomMarker *searchMarker = [[CustomMarker alloc] init];
-        searchMarker.position      = camera.target;
-        searchMarker.title         = [NSString stringWithFormat:@"%@",[nameArray objectAtIndex:i]];
-        searchMarker.snippet       = @"NYC";
-        searchMarker.image         = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:string]]];
-        searchMarker.icon          = [GMSMarker markerImageWithColor:[UIColor purpleColor]];
-        searchMarker.placeId       = [place_idArray objectAtIndex:i];
-        
-        self.arrayOfSearchMarkers = [NSMutableArray arrayWithObject:searchMarker];
-        for (CustomMarker *pin in self.arrayOfSearchMarkers) {
-            pin.map = self.mapView;
-        }
-    }
-}
-
 -(void)parseAndPush {
     NSDictionary *dict = [self.dictionaryOfPlaceSearchResults objectForKey:@"result"];
-    //    NSLog(@"%@",dict);
     self.serviceInfo = [Service new];
     self.serviceInfo.formattedAddress         = [dict valueForKey:@"formatted_address"];
     self.serviceInfo.formattedPhoneNumber     = [dict valueForKey:@"formatted_phone_number"];
@@ -214,8 +116,6 @@
     } else {
         self.mapView.hidden       = YES;
         self.ListContainer.hidden = NO;
-        ListContainerViewController *list = [[ListContainerViewController alloc] init];
-        list.arrayOfPlaces = self.arrayOfSearchMarkers;
     }
 }
 
@@ -224,10 +124,10 @@
     if ([segue.identifier isEqualToString:@"showDetailView"]) {
         DetailsViewController *detailView = (DetailsViewController *)segue.destinationViewController;
         detailView.service = self.serviceInfo;
+    } else if ([segue.identifier isEqualToString:@"listContainer"]) {
+        ListContainerViewController *listView = (ListContainerViewController *)segue.destinationViewController;
+        listView.arrayOfPlaces = self.arrayOfSearchMarkers;
+        listView.serviceImage  = self.serviceImage;
     }
-//    else if ([segue.identifier isEqualToString:@"listContainer"]) {
-//        ListContainerViewController *listContainer = (ListContainerViewController*)segue.destinationViewController;
-//        listContainer.arrayOfPlaces = self.arrayOfSearchMarkers;
-//    }
 }
 @end

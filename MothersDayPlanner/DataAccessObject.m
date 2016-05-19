@@ -12,7 +12,6 @@
 @implementation DataAccessObject
 
 + (instancetype)sharedInstance {
-    
     static dispatch_once_t cp_singleton_once_token;
     static DataAccessObject *sharedInstance;
     dispatch_once(&cp_singleton_once_token, ^{

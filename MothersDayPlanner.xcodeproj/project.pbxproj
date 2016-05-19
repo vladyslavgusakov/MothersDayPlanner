@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		433EBD5C1CED5C7700623B66 /* up2_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 433EBD5B1CED5C7700623B66 /* up2_filled.png */; };
+		439BA0A51CEE5320005448E8 /* ListContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A41CEE5320005448E8 /* ListContainerViewController.m */; };
+		439BA0A71CEE5FC1005448E8 /* GreetingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439BA0A61CEE5FC1005448E8 /* GreetingView.xib */; };
+		439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A91CEE5FE5005448E8 /* GreetingView.m */; };
 		43C3C05E1CEB8D7A00E9BC84 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */; };
-		43DA66381CED2CE100C92D2E /* ListContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DA66371CED2CE100C92D2E /* ListContainerViewController.m */; };
 		51A9AC9AB4AF7DFA5D7C922C /* libPods-MothersDayPlanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9121A79F0395FAF10688705 /* libPods-MothersDayPlanner.a */; };
 		B35DEBAD1CDBCBAF0069E358 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAC1CDBCBAF0069E358 /* next.png */; };
 		B35DEBAF1CDBCE440069E358 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAE1CDBCE440069E358 /* back.png */; };
@@ -44,11 +46,14 @@
 
 /* Begin PBXFileReference section */
 		433EBD5B1CED5C7700623B66 /* up2_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up2_filled.png; sourceTree = "<group>"; };
+		439BA0A31CEE5320005448E8 /* ListContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListContainerViewController.h; sourceTree = "<group>"; };
+		439BA0A41CEE5320005448E8 /* ListContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListContainerViewController.m; sourceTree = "<group>"; };
+		439BA0A61CEE5FC1005448E8 /* GreetingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingView.xib; sourceTree = "<group>"; };
+		439BA0A81CEE5FE5005448E8 /* GreetingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingView.h; sourceTree = "<group>"; };
+		439BA0A91CEE5FE5005448E8 /* GreetingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreetingView.m; sourceTree = "<group>"; };
 		43C3C05C1CEB8D7A00E9BC84 /* DataAccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
 		43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
 		43DA66311CED1CD000C92D2E /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		43DA66361CED2CE100C92D2E /* ListContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListContainerViewController.h; sourceTree = "<group>"; };
-		43DA66371CED2CE100C92D2E /* ListContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListContainerViewController.m; sourceTree = "<group>"; };
 		580C6AFD74138A863CC8DEEA /* Pods-MothersDayPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MothersDayPlanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-MothersDayPlanner/Pods-MothersDayPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		B35DEBAC1CDBCBAF0069E358 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
 		B35DEBAE1CDBCE440069E358 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -129,6 +134,7 @@
 				B3A423181CDBABDB006E0D1B /* Main.storyboard */,
 				B3A4231D1CDBABDB006E0D1B /* LaunchScreen.storyboard */,
 				B35DEBC51CDBF0210069E358 /* CustomPinView.xib */,
+				439BA0A61CEE5FC1005448E8 /* GreetingView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -140,6 +146,8 @@
 				43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */,
 				B3A4232E1CDBB996006E0D1B /* Service.h */,
 				B3A4232F1CDBB996006E0D1B /* Service.m */,
+				439BA0A81CEE5FE5005448E8 /* GreetingView.h */,
+				439BA0A91CEE5FE5005448E8 /* GreetingView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -169,8 +177,8 @@
 		43DA66321CED1D3700C92D2E /* Containers */ = {
 			isa = PBXGroup;
 			children = (
-				43DA66361CED2CE100C92D2E /* ListContainerViewController.h */,
-				43DA66371CED2CE100C92D2E /* ListContainerViewController.m */,
+				439BA0A31CEE5320005448E8 /* ListContainerViewController.h */,
+				439BA0A41CEE5320005448E8 /* ListContainerViewController.m */,
 			);
 			name = Containers;
 			sourceTree = "<group>";
@@ -310,6 +318,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439BA0A71CEE5FC1005448E8 /* GreetingView.xib in Resources */,
 				B35DEBCC1CDBF4110069E358 /* hair.jpg in Resources */,
 				B35DEBAD1CDBCBAF0069E358 /* next.png in Resources */,
 				B3A4231F1CDBABDB006E0D1B /* LaunchScreen.storyboard in Resources */,
@@ -404,12 +413,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A423301CDBB996006E0D1B /* Service.m in Sources */,
+				439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */,
 				B35DEBC41CDBEFE10069E358 /* CustomPinView.m in Sources */,
 				B3A423141CDBABDB006E0D1B /* AppDelegate.m in Sources */,
 				B3A423111CDBABDB006E0D1B /* main.m in Sources */,
 				B35DEBB21CDBCEA60069E358 /* AddServiceTableViewController.m in Sources */,
 				B35DEBB71CDBD8DB0069E358 /* MapsViewController.m in Sources */,
-				43DA66381CED2CE100C92D2E /* ListContainerViewController.m in Sources */,
+				439BA0A51CEE5320005448E8 /* ListContainerViewController.m in Sources */,
 				B3A4232D1CDBB90B006E0D1B /* CustomCell.m in Sources */,
 				B35DEBC31CDBEFE10069E358 /* CustomMarker.m in Sources */,
 				B3A4232A1CDBB8F2006E0D1B /* MainTableViewController.m in Sources */,

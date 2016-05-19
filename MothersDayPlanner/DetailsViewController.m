@@ -32,7 +32,6 @@
 @property (nonatomic, getter=isFrom) BOOL from;
 @property (nonatomic, strong) DataAccessObject *dao;
 
-
 @end
 
 @implementation DetailsViewController
@@ -41,10 +40,8 @@
     [super viewDidLoad];
     self.dao = [DataAccessObject sharedInstance];
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"hh:mm a"]; // from here u can change format..
+    [self.dateFormatter setDateFormat:@"hh:mm a"];
     self.dateView.hidden = YES;
-    
-    NSLog(@"new object to be saved - > %@, %@, %@, %@, %@", self.service.formattedAddress, self.service.formattedPhoneNumber, self.service.placeName, self.service.internationalPhoneNumber, self.service.serviceImage);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,14 +70,12 @@
     self.dateView.hidden = NO;
 }
 
-
 - (IBAction)doneButtonAction:(id)sender {
     if (self.isFrom == YES) {
         self.fromTime.text = [self.dateFormatter stringFromDate:self.datePicker.date];
     } else {
         self.toTime.text = [self.dateFormatter stringFromDate:self.datePicker.date];
     }
-    
     self.dateView.hidden = YES;
 }
 
