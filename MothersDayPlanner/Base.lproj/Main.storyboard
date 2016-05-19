@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iNc-JM-8WY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iNc-JM-8WY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -195,24 +195,6 @@
             </objects>
             <point key="canvasLocation" x="3925" y="130"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="jfj-NG-U9A">
-            <objects>
-                <viewController id="tFS-xe-IhG" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fqy-x5-qKy"/>
-                        <viewControllerLayoutGuide type="bottom" id="BmJ-NE-eRr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2d1-VT-5BE" customClass="GMSMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xn7-fk-qOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4358" y="831"/>
-        </scene>
         <!--Table View Controller-->
         <scene sceneID="1db-S9-Zdt">
             <objects>
@@ -222,7 +204,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="RF1-XN-h0V">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="RF1-XN-h0V">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RF1-XN-h0V" id="0aX-bY-sNb">
@@ -253,29 +235,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-uC-RaU">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <connections>
-                                    <segue destination="tFS-xe-IhG" kind="embed" id="guH-mZ-tgi"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gwB-BO-JCM">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <connections>
-                                    <segue destination="aYq-v7-IhL" kind="embed" id="kV4-g7-ekQ"/>
+                                    <segue destination="aYq-v7-IhL" kind="embed" identifier="listContainer" id="kV4-g7-ekQ"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ixb-27-G5B" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="fbM-uC-RaU" secondAttribute="trailing" constant="-20" id="75n-I9-E6p"/>
+                            <constraint firstItem="D9N-ic-r7f" firstAttribute="top" secondItem="Ixb-27-G5B" secondAttribute="bottom" id="9vN-Ch-qdF"/>
                             <constraint firstItem="D9N-ic-r7f" firstAttribute="top" secondItem="gwB-BO-JCM" secondAttribute="bottom" id="MDT-hy-iVc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ixb-27-G5B" secondAttribute="trailing" constant="-20" id="TMS-hH-qRb"/>
+                            <constraint firstItem="Ixb-27-G5B" firstAttribute="top" secondItem="613-nF-lkE" secondAttribute="bottom" id="Wjm-2Z-UJp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gwB-BO-JCM" secondAttribute="trailing" constant="-20" id="YI0-Zt-3uA"/>
+                            <constraint firstItem="Ixb-27-G5B" firstAttribute="leading" secondItem="Ng9-KT-UTh" secondAttribute="leadingMargin" constant="-20" id="iEv-fe-fUN"/>
                             <constraint firstItem="gwB-BO-JCM" firstAttribute="top" secondItem="613-nF-lkE" secondAttribute="bottom" id="jMd-r0-x3s"/>
-                            <constraint firstItem="fbM-uC-RaU" firstAttribute="leading" secondItem="Ng9-KT-UTh" secondAttribute="leadingMargin" constant="-20" id="k7P-de-jD7"/>
                             <constraint firstItem="gwB-BO-JCM" firstAttribute="leading" secondItem="Ng9-KT-UTh" secondAttribute="leadingMargin" constant="-20" id="mkT-eg-Bby"/>
-                            <constraint firstItem="D9N-ic-r7f" firstAttribute="top" secondItem="fbM-uC-RaU" secondAttribute="bottom" id="uk0-SY-iFW"/>
-                            <constraint firstItem="fbM-uC-RaU" firstAttribute="top" secondItem="613-nF-lkE" secondAttribute="bottom" id="zK5-WW-GQ0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="u4q-qO-ycc">
@@ -296,7 +276,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ListContainer" destination="gwB-BO-JCM" id="X7F-Jn-fbW"/>
-                        <outlet property="MapsContainer" destination="fbM-uC-RaU" id="d8Z-v3-YNq"/>
+                        <outlet property="mapView" destination="Ixb-27-G5B" id="q6u-Ie-ZRr"/>
                         <segue destination="kwL-7w-kIx" kind="show" identifier="showDetailView" id="C0k-EF-NHh"/>
                     </connections>
                 </viewController>

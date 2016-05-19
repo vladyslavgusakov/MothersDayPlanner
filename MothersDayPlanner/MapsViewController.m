@@ -12,6 +12,7 @@
 #import "Service.h"
 #import "Constants.h"
 #import "DetailsViewController.h"
+#import "ListContainerViewController.h"
 @import GoogleMaps;
 
 @interface MapsViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
@@ -43,12 +44,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self getCurrentLocation];
-//    self.mapView.myLocationEnabled = YES;
-//    self.mapView.delegate          = self;
-    
-    self.mapView.hidden = YES;
-    self.MapsContainer.hidden = NO;
+    [self getCurrentLocation];
+    self.mapView.myLocationEnabled         = YES;
+    self.mapView.settings.compassButton    = YES;
+    self.mapView.settings.myLocationButton = YES;
+    self.mapView.delegate                  = self;
+    self.mapView.hidden       = NO;
     self.ListContainer.hidden = YES;
 }
 
@@ -82,7 +83,6 @@
                 self.dictionaryOfSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 //                NSLog(@"%@",self.dictionaryOfSearchResults);
                 [self parseAndPin];
-                
             });
         }
     }] resume];
@@ -154,11 +154,6 @@
     return _arrayOfSearchMarkers;
 }
 
-#pragma mark - IBActions
-- (IBAction)switchView:(id)sender {
-    
-}
-
 #pragma mark - Miscellaneous
 - (void)presentAlertToUser {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Please, try again." preferredStyle:UIAlertControllerStyleAlert];
@@ -178,7 +173,7 @@
     NSArray *iconArray      = [result valueForKey:@"icon"];
     NSArray *latitudeArray  = [tempLoc valueForKey:@"lat"];
     NSArray *longitudeArray = [tempLoc valueForKey:@"lng"];
-    NSArray *place_idArray  =  [result valueForKey:@"place_id"];
+    NSArray *place_idArray  = [result valueForKey:@"place_id"];
     
     for (int i = 0 ; i < latitudeArray.count; i++) {
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[[latitudeArray objectAtIndex:i] doubleValue]
@@ -191,7 +186,7 @@
         searchMarker.snippet       = @"NYC";
         searchMarker.image         = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:string]]];
         searchMarker.icon          = [GMSMarker markerImageWithColor:[UIColor purpleColor]];
-        searchMarker.placeId      = [place_idArray objectAtIndex:i];
+        searchMarker.placeId       = [place_idArray objectAtIndex:i];
         
         self.arrayOfSearchMarkers = [NSMutableArray arrayWithObject:searchMarker];
         for (CustomMarker *pin in self.arrayOfSearchMarkers) {
@@ -212,21 +207,27 @@
     self.serviceInfo.website                  = [dict valueForKey:@"website"];
 }
 
+- (IBAction)switchValue:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        self.mapView.hidden       = NO;
+        self.ListContainer.hidden = YES;
+    } else {
+        self.mapView.hidden       = YES;
+        self.ListContainer.hidden = NO;
+        ListContainerViewController *list = [[ListContainerViewController alloc] init];
+        list.arrayOfPlaces = self.arrayOfSearchMarkers;
+    }
+}
+
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showDetailView"]) {
         DetailsViewController *detailView = (DetailsViewController *)segue.destinationViewController;
         detailView.service = self.serviceInfo;
     }
-}
-
-- (IBAction)switchValue:(UISegmentedControl *)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        self.MapsContainer.hidden = NO;
-        self.ListContainer.hidden = YES;
-    } else {
-        self.MapsContainer.hidden = YES;
-        self.ListContainer.hidden = NO;
-    }
+//    else if ([segue.identifier isEqualToString:@"listContainer"]) {
+//        ListContainerViewController *listContainer = (ListContainerViewController*)segue.destinationViewController;
+//        listContainer.arrayOfPlaces = self.arrayOfSearchMarkers;
+//    }
 }
 @end

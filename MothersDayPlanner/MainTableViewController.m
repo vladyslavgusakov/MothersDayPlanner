@@ -10,10 +10,13 @@
 #import "CustomCell.h"
 #import "DataAccessObject.h"
 #import "Service.h"
+#define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
+#define MIDDLE_VIEW_Y CGRectGetMidY(self.view.bounds)
 
 @interface MainTableViewController ()
 
 @property (nonatomic, strong) DataAccessObject *dao;
+@property (nonatomic, strong) CALayer *layer;
 
 @end
 
@@ -23,19 +26,8 @@
     [super viewDidLoad];
     self.dao = [DataAccessObject sharedInstance];
     NSLog(@"%@", self.dao.serviceList);
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-//    defaults = [NSUserDefaults standardUserDefaults];
-//    services = [NSMutableArray arrayWithArray:@[@"spa_main.jpg", @"flowers.jpg", @"liq.jpg", @"hair.jpg", @"jew.jpg"]];
-//    names = @[@"SPA", @"FLORIST", @"LIQUOR STORE", @"HAIR CARE", @"JEWERLY"];
-    
-
-    //    self.services = [NSMutableArray arrayWithArray:@[@"spa.jpg", @"flowers.jpg", @"liq.jpg", @"hair.jpg", @"jew.jpg"]];
-    //    self.names    = @[@"SPA", @"FLORIST", @"LIQUOR STORE", @"HAIR CARE", @"JEWELRY"];
+    [self greetNewUser];
+    [self trackFirstLaunch];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -44,10 +36,75 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+    [self animateLayer];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.layer removeFromSuperlayer];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - First Launch Greeting
+
+- (BOOL)isFirstLaunchEver {
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"HasLaunchedOnce"] == NO) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (void)greetNewUser {
+    if ([self isFirstLaunchEver]){
+        NSLog(@"First Launch :)");
+        //        [self presentView];
+    }
+}
+
+- (void)trackFirstLaunch {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+//TODO: Re-Make greeting view xib.. it got deleted
+- (void)presentView {
+    UIView *greet = [[[NSBundle mainBundle] loadNibNamed:@"GreetingView" owner:self options:kNilOptions] objectAtIndex:0];
+    greet.center = self.view.center;
+    [self.view addSubview:greet];
+}
+
+#pragma mark - CA Prompt
+#warning we can get rid of this if we want
+- (void)animateLayer {
+    if (self.dao.serviceList.count == 0) {
+        [self createLayer];
+        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+        pulseAnimation.toValue           = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+        pulseAnimation.autoreverses      = YES;
+        pulseAnimation.duration          = 1.0;
+        pulseAnimation.repeatCount       = HUGE_VALF;
+        pulseAnimation.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [self.layer addAnimation:pulseAnimation forKey:@"pulse"];
+    } else {
+        [self.layer removeFromSuperlayer];
+    }
+}
+
+- (void)createLayer {
+    self.layer = [CALayer layer];
+    self.layer.contents = (id)[UIImage imageNamed:@"up2_filled.png"].CGImage;
+    self.layer.bounds = CGRectMake(0, 0, 100, 100);
+    self.layer.position = CGPointMake(MIDDLE_VIEW_X + 130, MIDDLE_VIEW_Y - 200);
+    [self.layer setMasksToBounds:YES];
+    self.layer.transform = CATransform3DMakeScale(1.90, 1.90, 1.00);
+    self.layer.zPosition = 9;
+    [self.view.layer addSublayer:self.layer];
 }
 
 #pragma mark - Table View Data Source
@@ -63,10 +120,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    // Configure the cell...
-//    cell.name.text = names[indexPath.row];
-//    cell.background.image = [UIImage imageNamed:services[indexPath.row]];
-    cell.background.clipsToBounds = YES;
     Service *service      = [self.dao.serviceList objectAtIndex:indexPath.row];
     cell.name.text        = service.placeName;
     cell.background.image = [UIImage imageNamed:service.serviceImage];

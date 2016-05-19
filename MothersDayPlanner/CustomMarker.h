@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) UIImage  *image;
 @property (nonatomic, strong) NSString *placeId;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 @end
