@@ -87,6 +87,8 @@
     self.serviceInfo.internationalPhoneNumber = [dict valueForKey:@"international_phone_number"];
     self.serviceInfo.serviceImage             = self.serviceImage;
     self.serviceInfo.website                  = [dict valueForKey:@"website"];
+    self.serviceInfo.latitude                 = self.coordinate.latitude;
+    self.serviceInfo.longitude                = self.coordinate.longitude;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

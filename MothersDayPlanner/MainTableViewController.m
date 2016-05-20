@@ -11,6 +11,7 @@
 #import "DataAccessObject.h"
 #import "Service.h"
 #import "WebViewController.h"
+
 #define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
 #define MIDDLE_VIEW_Y CGRectGetMidY(self.view.bounds)
 
@@ -26,7 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dao = [DataAccessObject sharedInstance];
-    NSLog(@"%@", self.dao.serviceList);
     [self greetNewUser];
     [self trackFirstLaunch];
 }
@@ -61,7 +61,6 @@
 
 - (void)greetNewUser {
     if ([self isFirstLaunchEver]){
-        NSLog(@"First Launch :)");
         [self presentView];
     }
 }
@@ -178,6 +177,8 @@
     Service *service = [self.dao.serviceList objectAtIndex:indexPath.row];
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Choose" message:@"Select an option below" preferredStyle:UIAlertControllerStyleActionSheet];
+    alertController.view.backgroundColor = [UIColor whiteColor];
+    alertController.view.tintColor = [UIColor purpleColor];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         //alertController dismisses itself
     }];
@@ -186,17 +187,42 @@
         [self performSegueWithIdentifier:@"showWeb" sender:service.website];
     }];
     
-    //TODO: add show note action
-    //TODO: add show directions action
+    UIAlertAction *directionsAction = [UIAlertAction actionWithTitle:@"Get Directions" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getDirectionsForService:service];
+    }];
     
-    [alertController addAction:cancelAction];
+    //TODO: add show note action
+    
+    [alertController addAction:directionsAction];
     [alertController addAction:webAction];
+    [alertController addAction:cancelAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)getDirectionsForService: (Service *)service {
+    NSString *currentLocation = @"Current%20Location";
+    if ([[UIApplication sharedApplication] canOpenURL:
+         [NSURL URLWithString:@"comgooglemaps://"]]) {
+        [[UIApplication sharedApplication] openURL:
+         [NSURL URLWithString:[NSString stringWithFormat:@"comgooglemaps://?saddr=%@&daddr=%@&directionsmode=driving",currentLocation,[service.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]]];
+    } else {
+        [self presentAlertToUser];
+    }
+}
+
+- (void)presentAlertToUser {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Please, try again." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //do nothing... alert dismisses itself
+    }];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
  #pragma mark - Navigation
- 
+
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier isEqualToString:@"showWeb"]) {
          WebViewController *webView = (WebViewController *)segue.destinationViewController;

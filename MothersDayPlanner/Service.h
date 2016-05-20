@@ -19,5 +19,7 @@
 @property (nonatomic, strong) NSString *toTime;
 @property (nonatomic, strong) NSString *note;
 @property (nonatomic, strong) NSString *website;
+@property (nonatomic, assign) double latitude;
+@property (nonatomic, assign) double longitude;
 
 @end

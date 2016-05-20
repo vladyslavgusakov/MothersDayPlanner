@@ -13,7 +13,6 @@
 #import "Constants.h"
 #import "DetailsViewController.h"
 #import "ListContainerViewController.h"
-@import GoogleMaps;
 
 @interface MapsViewController () <GMSMapViewDelegate>
 
@@ -100,13 +99,15 @@
 
 -(void)parseAndPush {
     NSDictionary *dict = [self.dictionaryOfPlaceSearchResults objectForKey:@"result"];
-    self.serviceInfo = [Service new];
+    self.serviceInfo   = [Service new];
     self.serviceInfo.formattedAddress         = [dict valueForKey:@"formatted_address"];
     self.serviceInfo.formattedPhoneNumber     = [dict valueForKey:@"formatted_phone_number"];
     self.serviceInfo.placeName                = [dict valueForKey:@"name"];
     self.serviceInfo.internationalPhoneNumber = [dict valueForKey:@"international_phone_number"];
     self.serviceInfo.serviceImage             = self.serviceImage;
     self.serviceInfo.website                  = [dict valueForKey:@"website"];
+    self.serviceInfo.latitude                 = self.coordinate.latitude;
+    self.serviceInfo.longitude                = self.coordinate.longitude;
 }
 
 - (IBAction)switchValue:(UISegmentedControl *)sender {
@@ -128,6 +129,7 @@
         ListContainerViewController *listView = (ListContainerViewController *)segue.destinationViewController;
         listView.arrayOfPlaces = self.arrayOfSearchMarkers;
         listView.serviceImage  = self.serviceImage;
+        listView.coordinate    = self.coordinate;
     }
 }
 @end

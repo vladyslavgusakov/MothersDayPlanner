@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43168C231CEFA6CE007A5630 /* high_importance.png in Resources */ = {isa = PBXBuildFile; fileRef = 43168C221CEFA6CE007A5630 /* high_importance.png */; };
 		433EBD5C1CED5C7700623B66 /* up2_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 433EBD5B1CED5C7700623B66 /* up2_filled.png */; };
 		439BA0A51CEE5320005448E8 /* ListContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A41CEE5320005448E8 /* ListContainerViewController.m */; };
 		439BA0A71CEE5FC1005448E8 /* GreetingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439BA0A61CEE5FC1005448E8 /* GreetingView.xib */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43168C221CEFA6CE007A5630 /* high_importance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = high_importance.png; sourceTree = "<group>"; };
 		433EBD5B1CED5C7700623B66 /* up2_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up2_filled.png; sourceTree = "<group>"; };
 		439BA0A31CEE5320005448E8 /* ListContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListContainerViewController.h; sourceTree = "<group>"; };
 		439BA0A41CEE5320005448E8 /* ListContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListContainerViewController.m; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				4324D64C1CEA927000EB688A /* Controller */,
 				4324D64F1CEA928000EB688A /* Delegate */,
 				B3A4231B1CDBABDB006E0D1B /* Assets.xcassets */,
+				43168C221CEFA6CE007A5630 /* high_importance.png */,
 				433EBD5B1CED5C7700623B66 /* up2_filled.png */,
 				B3F2DA301CED096700ECC813 /* clothing_main.jpg */,
 				B3F2DA2E1CED08A300ECC813 /* beauty_main.png */,
@@ -344,6 +347,7 @@
 				B35DEBAD1CDBCBAF0069E358 /* next.png in Resources */,
 				B3A4231F1CDBABDB006E0D1B /* LaunchScreen.storyboard in Resources */,
 				B35DEBB41CDBD5AB0069E358 /* save.png in Resources */,
+				43168C231CEFA6CE007A5630 /* high_importance.png in Resources */,
 				B3A4231C1CDBABDB006E0D1B /* Assets.xcassets in Resources */,
 				B35DEBBE1CDBE6430069E358 /* note.png in Resources */,
 				B3A423271CDBB75A006E0D1B /* spa_main.jpg in Resources */,

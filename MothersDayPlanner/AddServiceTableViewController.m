@@ -11,6 +11,7 @@
 #import "CustomMarker.h"
 #import "Constants.h"
 @import GoogleMaps;
+
 #define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
 #define MIDDLE_VIEW_Y CGRectGetMidY(self.view.bounds)
 
