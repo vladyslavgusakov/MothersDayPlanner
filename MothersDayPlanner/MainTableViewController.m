@@ -10,13 +10,14 @@
 #import "CustomCell.h"
 #import "DataAccessObject.h"
 #import "Service.h"
+#import "WebViewController.h"
 #define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
 #define MIDDLE_VIEW_Y CGRectGetMidY(self.view.bounds)
 
 @interface MainTableViewController ()
 
 @property (nonatomic, strong) DataAccessObject *dao;
-@property (nonatomic, strong) CALayer *layer;
+@property (nonatomic, strong) CALayer          *layer;
 
 @end
 
@@ -125,7 +126,7 @@
     cell.desc.text        = service.formattedAddress;
     cell.fromTime.text    = service.fromTime;
     cell.toTime.text      = service.toTime;
-    cell.clipsToBounds    = YES;
+    cell.background.clipsToBounds = YES;
     
     NSLog(@"%@",service.formattedPhoneNumber);
     NSLog(@"%@",service.internationalPhoneNumber);
@@ -164,7 +165,7 @@
     if ([[UIApplication sharedApplication]canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];
     } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"This service does not provide a phone number here" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"This service did not provide a phone number" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             //alertController dismisses itself
         }];
@@ -173,48 +174,35 @@
     }
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Service *service = [self.dao.serviceList objectAtIndex:indexPath.row];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Choose" message:@"Select an option below" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //alertController dismisses itself
+    }];
+    
+    UIAlertAction *webAction = [UIAlertAction actionWithTitle:@"Website" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self performSegueWithIdentifier:@"showWeb" sender:service.website];
+    }];
+    
+    //TODO: add show note action
+    //TODO: add show directions action
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:webAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
  #pragma mark - Navigation
  
- // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"showWeb"]) {
+         WebViewController *webView = (WebViewController *)segue.destinationViewController;
+         webView.myURL = sender;
+     }
  }
- */
+ 
 
 @end

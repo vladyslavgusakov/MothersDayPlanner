@@ -12,6 +12,7 @@
 		439BA0A71CEE5FC1005448E8 /* GreetingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439BA0A61CEE5FC1005448E8 /* GreetingView.xib */; };
 		439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A91CEE5FE5005448E8 /* GreetingView.m */; };
 		43C3C05E1CEB8D7A00E9BC84 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */; };
+		43D016A11CEEB5BF007C3B29 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D016A01CEEB5BF007C3B29 /* WebViewController.m */; };
 		51A9AC9AB4AF7DFA5D7C922C /* libPods-MothersDayPlanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9121A79F0395FAF10688705 /* libPods-MothersDayPlanner.a */; };
 		B35DEBAD1CDBCBAF0069E358 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAC1CDBCBAF0069E358 /* next.png */; };
 		B35DEBAF1CDBCE440069E358 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAE1CDBCE440069E358 /* back.png */; };
@@ -53,6 +54,8 @@
 		439BA0A91CEE5FE5005448E8 /* GreetingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreetingView.m; sourceTree = "<group>"; };
 		43C3C05C1CEB8D7A00E9BC84 /* DataAccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
 		43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
+		43D0169F1CEEB5BF007C3B29 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		43D016A01CEEB5BF007C3B29 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		43DA66311CED1CD000C92D2E /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		580C6AFD74138A863CC8DEEA /* Pods-MothersDayPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MothersDayPlanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-MothersDayPlanner/Pods-MothersDayPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		B35DEBAC1CDBCBAF0069E358 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
@@ -115,15 +118,9 @@
 			isa = PBXGroup;
 			children = (
 				4324D6501CEA92B200EB688A /* CustomControllers */,
-				B3A423281CDBB8F2006E0D1B /* MainTableViewController.h */,
-				B3A423291CDBB8F2006E0D1B /* MainTableViewController.m */,
-				B35DEBB01CDBCEA60069E358 /* AddServiceTableViewController.h */,
-				B35DEBB11CDBCEA60069E358 /* AddServiceTableViewController.m */,
-				B35DEBB51CDBD8DB0069E358 /* MapsViewController.h */,
-				B35DEBB61CDBD8DB0069E358 /* MapsViewController.m */,
-				B35DEBB81CDBDB2E0069E358 /* DetailsViewController.h */,
-				B35DEBB91CDBDB2E0069E358 /* DetailsViewController.m */,
+				43D0169D1CEEB589007C3B29 /* Main Controllers */,
 				43DA66321CED1D3700C92D2E /* Containers */,
+				43D0169E1CEEB59F007C3B29 /* Web */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -172,6 +169,30 @@
 				B35DEBC21CDBEFE10069E358 /* CustomPinView.m */,
 			);
 			name = CustomControllers;
+			sourceTree = "<group>";
+		};
+		43D0169D1CEEB589007C3B29 /* Main Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B3A423281CDBB8F2006E0D1B /* MainTableViewController.h */,
+				B3A423291CDBB8F2006E0D1B /* MainTableViewController.m */,
+				B35DEBB01CDBCEA60069E358 /* AddServiceTableViewController.h */,
+				B35DEBB11CDBCEA60069E358 /* AddServiceTableViewController.m */,
+				B35DEBB51CDBD8DB0069E358 /* MapsViewController.h */,
+				B35DEBB61CDBD8DB0069E358 /* MapsViewController.m */,
+				B35DEBB81CDBDB2E0069E358 /* DetailsViewController.h */,
+				B35DEBB91CDBDB2E0069E358 /* DetailsViewController.m */,
+			);
+			name = "Main Controllers";
+			sourceTree = "<group>";
+		};
+		43D0169E1CEEB59F007C3B29 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				43D0169F1CEEB5BF007C3B29 /* WebViewController.h */,
+				43D016A01CEEB5BF007C3B29 /* WebViewController.m */,
+			);
+			name = Web;
 			sourceTree = "<group>";
 		};
 		43DA66321CED1D3700C92D2E /* Containers */ = {
@@ -413,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A423301CDBB996006E0D1B /* Service.m in Sources */,
+				43D016A11CEEB5BF007C3B29 /* WebViewController.m in Sources */,
 				439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */,
 				B35DEBC41CDBEFE10069E358 /* CustomPinView.m in Sources */,
 				B3A423141CDBABDB006E0D1B /* AppDelegate.m in Sources */,

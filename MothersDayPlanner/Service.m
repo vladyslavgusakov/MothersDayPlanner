@@ -22,8 +22,9 @@
     [aCoder encodeObject:self.website forKey:@"website"];
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    if(self = [super init]){
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if(self) {
         self.formattedAddress         = [aDecoder decodeObjectForKey:@"formattedAddress"];
         self.formattedPhoneNumber     = [aDecoder decodeObjectForKey:@"formattedPhoneNumber"];
         self.internationalPhoneNumber = [aDecoder decodeObjectForKey:@"internationalPhoneNumber"];

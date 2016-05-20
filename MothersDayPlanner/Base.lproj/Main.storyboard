@@ -156,10 +156,31 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="ia6-r0-O1k" kind="show" identifier="showWeb" id="kLg-vj-HEe"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ki-rb-fDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3134" y="-14"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="0xP-U2-AmN">
+            <objects>
+                <viewController id="ia6-r0-O1k" customClass="WebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q7b-KM-1q2"/>
+                        <viewControllerLayoutGuide type="bottom" id="SS8-dF-vJy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2QG-UJ-Scw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HOh-9a-eqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3134" y="835"/>
         </scene>
         <!--Choose a service-->
         <scene sceneID="XLJ-YY-ge1">
@@ -185,7 +206,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Choose a service" id="975-xc-XVa">
-                        <barButtonItem key="rightBarButtonItem" title="  " id="D9T-qy-TN7"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="97B-tw-eWc">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zKK-0v-YKp">
+                                <rect key="frame" x="500" y="7" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title=" "/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="d71-XP-AQp" kind="show" identifier="showMapList" id="DiJ-G6-Kn1"/>

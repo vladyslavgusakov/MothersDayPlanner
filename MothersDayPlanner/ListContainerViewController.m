@@ -83,7 +83,6 @@
     NSDictionary *dict = [self.dictionaryOfPlaceSearchResults objectForKey:@"result"];
     self.serviceInfo = [Service new];
     self.serviceInfo.formattedAddress         = [dict valueForKey:@"formatted_address"];
-    self.serviceInfo.formattedPhoneNumber     = [dict valueForKey:@"formatted_phone_number"];
     self.serviceInfo.placeName                = [dict valueForKey:@"name"];
     self.serviceInfo.internationalPhoneNumber = [dict valueForKey:@"international_phone_number"];
     self.serviceInfo.serviceImage             = self.serviceImage;

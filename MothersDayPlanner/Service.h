@@ -18,6 +18,6 @@
 @property (nonatomic, strong) NSString *fromTime;
 @property (nonatomic, strong) NSString *toTime;
 @property (nonatomic, strong) NSString *note;
-@property (nonatomic, strong) NSString *website; //can maybe use to display website 
+@property (nonatomic, strong) NSString *website;
 
 @end
