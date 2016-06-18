@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "DetailsViewController.h"
 #import "ListContainerViewController.h"
+#import "DataAccessObject.h"
 
 @interface MapsViewController () <GMSMapViewDelegate>
 
@@ -26,6 +27,7 @@
 @property (nonatomic, strong) NSDictionary     *dictionaryOfPlaceSearchResults;
 @property (nonatomic, strong) NSString         *placeToSearch;
 @property (nonatomic, strong) Service          *serviceInfo;
+@property (nonatomic, strong) DataAccessObject *dao;
 
 @end
 
@@ -33,6 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dao = [DataAccessObject sharedInstance];
     [self setMapviewInitialSettings];
 }
 
@@ -50,30 +53,35 @@
 }
 
 #pragma mark - API Requests
-- (void)fetchInfoBasedForSelectedPlace {
-    NSLog(@"lat %lf, long %lf",self.coordinate.latitude, self.coordinate.longitude);
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSString     *url     = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",self.placeToSearch, serverKey];
-    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData * _Nullable data,
-                                                                            NSURLResponse * _Nullable response,
-                                                                            NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
-        } else {
-
-            dispatch_async(dispatch_get_main_queue(),^{
-                self.dictionaryOfPlaceSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                [self parseAndPush];
-                [self performSegueWithIdentifier:@"showDetailView" sender:nil];
-            });
-        }
-    }] resume];
+- (void)fetchInfoBasedOnSelectedPlace {
+//    NSLog(@"lat %lf, long %lf",self.coordinate.latitude, self.coordinate.longitude);
+    if ([self.dao validInternetConnectionExists]) {
+        NSURLSession *session = [NSURLSession sharedSession];
+        
+        NSString     *url     = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",self.placeToSearch, serverKey];
+        [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData * _Nullable data,
+                                                                                NSURLResponse * _Nullable response,
+                                                                                NSError * _Nullable error) {
+            if (error) {
+                //NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
+                [self presentAlertToUser];
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(),^{
+                    self.dictionaryOfPlaceSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    [self parseAndPush];
+                    [self performSegueWithIdentifier:@"showDetailView" sender:nil];
+                });
+            }
+        }] resume];
+    } else {
+        [self presentAlertForBadInternet];
+    }
 }
 
 #pragma mark - GMSMapView Delegate
 - (UIView*)mapView:(GMSMapView*)mapView markerInfoWindow:(CustomMarker*)marker {
-    CustomPinView *infoWindow        = [[[NSBundle mainBundle]loadNibNamed:@"CustomPinView" owner:self options:nil]objectAtIndex:0];
+    CustomPinView *infoWindow     = [[[NSBundle mainBundle]loadNibNamed:@"CustomPinView" owner:self options:nil]objectAtIndex:0];
     infoWindow.titleLabel.text    = marker.title;
     infoWindow.subTitleLabel.text = marker.snippet;
     infoWindow.leftImage.image    = marker.image;
@@ -82,8 +90,8 @@
 
 - (void)mapView:(GMSMapView*)mapView didTapInfoWindowOfMarker:(CustomMarker*)marker {
     self.placeToSearch = marker.placeId;
-    NSLog(@"PLACE ID == %@",self.placeToSearch);
-    [self fetchInfoBasedForSelectedPlace];
+//    NSLog(@"PLACE ID == %@",self.placeToSearch);
+    [self fetchInfoBasedOnSelectedPlace];
 }
 
 #pragma mark - Miscellaneous
@@ -94,6 +102,15 @@
         //do nothing... alert dismisses itself
     }];
     [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)presentAlertForBadInternet {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Internet Required" message:@"Please check your internet connection and try again." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //alert controller dismisses itself
+    }];
+    [alertController addAction:dismissAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 

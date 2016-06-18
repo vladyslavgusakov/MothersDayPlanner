@@ -10,10 +10,12 @@
 #import "CustomMarker.h"
 #import "Constants.h"
 #import "DetailsViewController.h"
+#import "DataAccessObject.h"
 
 @interface ListContainerViewController ()
 
-@property (nonatomic, strong) NSString *placeToSearch;
+@property (nonatomic, strong) NSString         *placeToSearch;
+@property (nonatomic, strong) DataAccessObject *dao;
 
 @end
 
@@ -21,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dao = [DataAccessObject sharedInstance];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -54,29 +57,32 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomMarker *marker = [self.arrayOfPlaces objectAtIndex:indexPath.row];
     self.placeToSearch   = marker.placeId;
-    NSLog(@"PLACE ID == %@",self.placeToSearch);
-    [self fetchInfoBasedForSelectedPlace];
+    //NSLog(@"PLACE ID == %@",self.placeToSearch);
+    [self fetchInfoBasedOnSelectedPlace];
 }
 
-#warning this code below is the same code as the MapsViewController (fetchInfo and parseAndPush).. we can abstract this out so they are only defined once
-
 #pragma mark - API Requests
-- (void)fetchInfoBasedForSelectedPlace {
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSString     *url     = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",self.placeToSearch, serverKey];
-    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData * _Nullable data,
-                                                                            NSURLResponse * _Nullable response,
-                                                                            NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
-        } else {
-            dispatch_async(dispatch_get_main_queue(),^{
-                self.dictionaryOfPlaceSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                [self parseAndPush];
-                [self performSegueWithIdentifier:@"showDetail" sender:nil];
-            });
-        }
-    }] resume];
+- (void)fetchInfoBasedOnSelectedPlace {
+    if ([self.dao validInternetConnectionExists]) {
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSString     *url     = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",self.placeToSearch, serverKey];
+        [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData * _Nullable data,
+                                                                                NSURLResponse * _Nullable response,
+                                                                                NSError * _Nullable error) {
+            if (error) {
+                //NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
+                [self presentAlertToUser];
+            } else {
+                dispatch_async(dispatch_get_main_queue(),^{
+                    self.dictionaryOfPlaceSearchResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    [self parseAndPush];
+                    [self performSegueWithIdentifier:@"showDetail" sender:nil];
+                });
+            }
+        }] resume];
+    } else {
+        [self presentAlertForBadInternet];
+    }
 }
 
 -(void)parseAndPush {
@@ -89,6 +95,26 @@
     self.serviceInfo.website                  = [dict valueForKey:@"website"];
     self.serviceInfo.latitude                 = self.coordinate.latitude;
     self.serviceInfo.longitude                = self.coordinate.longitude;
+}
+
+- (void)presentAlertToUser {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Please, try again." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //do nothing... alert dismisses itself
+    }];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+- (void)presentAlertForBadInternet {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Internet Required" message:@"Please check your internet connection and try again." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //alert controller dismisses itself
+    }];
+    [alertController addAction:dismissAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -21,7 +21,7 @@
 #pragma mark - IBOutlets
 @property (weak, nonatomic) IBOutlet UILabel      *fromTime;
 @property (weak, nonatomic) IBOutlet UILabel      *toTime;
-@property (weak, nonatomic) IBOutlet UITextField  *noteTextField;
+//@property (weak, nonatomic) IBOutlet UITextField  *noteTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView       *dateView;
 @property (weak, nonatomic) IBOutlet UIButton     *choose1;
@@ -51,9 +51,8 @@
 - (IBAction)save:(id)sender {
     self.service.fromTime = self.fromTime.text;
     self.service.toTime   = self.toTime.text;
-    self.service.note     = self.noteTextField.text;
-    
-    NSLog(@"object - > %@, %@, %@, %@, %@, %@, %@, %@, %@", self.service.formattedAddress, self.service.formattedPhoneNumber, self.service.placeName, self.service.internationalPhoneNumber, self.service.serviceImage, self.service.fromTime, self.service.toTime, self.service.note, self.service.website);
+//    self.service.note     = self.noteTextField.text;
+   // NSLog(@"object - > %@, %@, %@, %@, %@, %@, %@, %@, %@", self.service.formattedAddress, self.service.formattedPhoneNumber, self.service.placeName, self.service.internationalPhoneNumber, self.service.serviceImage, self.service.fromTime, self.service.toTime, self.service.note, self.service.website);
     
     [self.dao.serviceList addObject:self.service];
     [self.dao save];

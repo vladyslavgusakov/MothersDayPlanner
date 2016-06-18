@@ -11,6 +11,8 @@
 #import "DataAccessObject.h"
 #import "Service.h"
 #import "WebViewController.h"
+#import "Reachability.h"
+#import "GreetingView.h"
 
 #define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
 #define MIDDLE_VIEW_Y CGRectGetMidY(self.view.bounds)
@@ -18,7 +20,8 @@
 @interface MainTableViewController ()
 
 @property (nonatomic, strong) DataAccessObject *dao;
-@property (nonatomic, strong) CALayer          *layer;
+//@property (nonatomic, strong) CALayer          *layer;
+@property (nonatomic) Reachability *internetReachability;
 
 @end
 
@@ -28,83 +31,91 @@
     [super viewDidLoad];
     self.dao = [DataAccessObject sharedInstance];
     [self greetNewUser];
-    [self trackFirstLaunch];
+    [self.dao trackFirstLaunch];
 }
 
--(void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.dao fetchAllDataFromUserDefaults];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
-    [self animateLayer];
+//    [self animateLayer];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    [self testInternetConnection];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.layer removeFromSuperlayer];
+//    [self.layer removeFromSuperlayer];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+- (void)testInternetConnection {
+    if (![self.dao validInternetConnectionExists])
+        [self presentAlertForBadInternet];
+}
+
+- (void)presentAlertForBadInternet {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Internet Required" message:@"Please check your internet connection and try again." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //alert controller dismisses itself
+    }];
+    [alertController addAction:dismissAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - First Launch Greeting
 
 - (BOOL)isFirstLaunchEver {
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"HasLaunchedOnce"] == NO) {
-        return true;
-    } else {
-        return false;
-    }
+    return ([[NSUserDefaults standardUserDefaults]boolForKey:@"HasLaunchedOnce"] == NO) ? YES : NO;
 }
 
 - (void)greetNewUser {
-    if ([self isFirstLaunchEver]){
+    if ([self isFirstLaunchEver])
         [self presentView];
-    }
-}
-
-- (void)trackFirstLaunch {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
 }
 
 - (void)presentView {
-    UIView *greet = [[[NSBundle mainBundle] loadNibNamed:@"GreetingView" owner:self options:kNilOptions] objectAtIndex:0];
+#warning Vlad... Greeting View gets displayed here on first launch
+    GreetingView *greet = [[[NSBundle mainBundle] loadNibNamed:@"GreetingView" owner:self options:kNilOptions] objectAtIndex:0];
     greet.center = self.view.center;
+    
     [self.view addSubview:greet];
 }
 
 #pragma mark - CA Prompt
-#warning we can get rid of this and/or adjust this
-- (void)animateLayer {
-    if (self.dao.serviceList.count == 0) {
-        [self createLayer];
-        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-        pulseAnimation.toValue           = [NSValue valueWithCATransform3D:CATransform3DIdentity];
-        pulseAnimation.autoreverses      = YES;
-        pulseAnimation.duration          = 1.0;
-        pulseAnimation.repeatCount       = HUGE_VALF;
-        pulseAnimation.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        [self.layer addAnimation:pulseAnimation forKey:@"pulse"];
-    } else {
-        [self.layer removeFromSuperlayer];
-    }
-}
+//- (void)animateLayer {
+//    if (self.dao.serviceList.count == 0) {
+//        [self createLayer];
+//        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+//        pulseAnimation.toValue           = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+//        pulseAnimation.autoreverses      = YES;
+//        pulseAnimation.duration          = 1.0;
+//        pulseAnimation.repeatCount       = HUGE_VALF;
+//        pulseAnimation.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        [self.layer addAnimation:pulseAnimation forKey:@"pulse"];
+//    } else {
+//        [self.layer removeFromSuperlayer];
+//    }
+//}
 
-- (void)createLayer {
-    self.layer = [CALayer layer];
-    self.layer.contents = (id)[UIImage imageNamed:@"up2_filled.png"].CGImage;
-    self.layer.bounds = CGRectMake(0, 0, 100, 100);
-    self.layer.position = CGPointMake(MIDDLE_VIEW_X + 130, MIDDLE_VIEW_Y - 200);
-    [self.layer setMasksToBounds:YES];
-    self.layer.transform = CATransform3DMakeScale(1.90, 1.90, 1.00);
-    self.layer.zPosition = 9;
-    [self.view.layer addSublayer:self.layer];
-}
+//- (void)createLayer {
+//    self.layer = [CALayer layer];
+//    self.layer.contents = (id)[UIImage imageNamed:@"up2_filled.png"].CGImage;
+//    self.layer.bounds = CGRectMake(0, 0, 100, 100);
+//    self.layer.position = CGPointMake(MIDDLE_VIEW_X + 130, MIDDLE_VIEW_Y - 200);
+//    [self.layer setMasksToBounds:YES];
+//    self.layer.transform = CATransform3DMakeScale(1.90, 1.90, 1.00);
+//    self.layer.zPosition = 9;
+//    [self.view.layer addSublayer:self.layer];
+//}
 
 #pragma mark - Table View Data Source
 
@@ -127,9 +138,6 @@
     cell.toTime.text      = service.toTime;
     cell.background.clipsToBounds = YES;
     
-    NSLog(@"%@",service.formattedPhoneNumber);
-    NSLog(@"%@",service.internationalPhoneNumber);
-    
     return cell;
 }
 
@@ -139,7 +147,6 @@
 }
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Call" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         Service *service = [self.dao.serviceList objectAtIndex:indexPath.row];
         [self makePhoneCallWithNumber:service.internationalPhoneNumber];
@@ -183,15 +190,21 @@
         //alertController dismisses itself
     }];
     
-    UIAlertAction *webAction = [UIAlertAction actionWithTitle:@"Website" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self performSegueWithIdentifier:@"showWeb" sender:service.website];
+    UIAlertAction *webAction = [UIAlertAction actionWithTitle:@"Website" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+        if ([self.dao validInternetConnectionExists]) {
+            [self performSegueWithIdentifier:@"showWeb" sender:service.website];
+        } else {
+            [self presentAlertForBadInternet];
+        }
     }];
     
     UIAlertAction *directionsAction = [UIAlertAction actionWithTitle:@"Get Directions" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self getDirectionsForService:service];
+        if ([self.dao validInternetConnectionExists]) {
+            [self getDirectionsForService:service];
+        } else {
+            [self presentAlertForBadInternet];
+        }
     }];
-    
-    //TODO: add show note action
     
     [alertController addAction:directionsAction];
     [alertController addAction:webAction];
@@ -201,18 +214,18 @@
 }
 
 - (void)getDirectionsForService: (Service *)service {
-    NSString *currentLocation = @"Current%20Location";
+//    NSString *currentLocation = @"Current%20Location";
     if ([[UIApplication sharedApplication] canOpenURL:
          [NSURL URLWithString:@"comgooglemaps://"]]) {
         [[UIApplication sharedApplication] openURL:
-         [NSURL URLWithString:[NSString stringWithFormat:@"comgooglemaps://?saddr=%@&daddr=%@&directionsmode=driving",currentLocation,[service.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]]];
+         [NSURL URLWithString:[NSString stringWithFormat:@"comgooglemaps://?saddr=&daddr=%@&directionsmode=driving",[service.formattedAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]]];
     } else {
-        [self presentAlertToUser];
+        [self presentAlertToUserWithMessage:@"Please make sure you have google maps installed."];
     }
 }
 
-- (void)presentAlertToUser {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Please, try again." preferredStyle:UIAlertControllerStyleAlert];
+- (void)presentAlertToUserWithMessage:(NSString*)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sorry!" message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         //do nothing... alert dismisses itself

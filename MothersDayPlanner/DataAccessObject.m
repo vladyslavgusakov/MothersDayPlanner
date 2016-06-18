@@ -21,6 +21,7 @@
     return sharedInstance;
 }
 
+#pragma mark - NSUserDefaults
 - (void)save {
     NSData *encodeObject     = [NSKeyedArchiver archivedDataWithRootObject:self.serviceList];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -38,6 +39,20 @@
         [defaults setObject:encodeObject forKey:@"serviceListData"];
         [defaults synchronize];
     }
+}
+
+- (void)trackFirstLaunch {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+#pragma mark - Test Reachability
+- (BOOL)validInternetConnectionExists {
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus netWorkStatus = [self.internetReachability currentReachabilityStatus];
+    return (netWorkStatus != NotReachable) ? YES : NO;
 }
 
 @end

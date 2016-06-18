@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		43168C231CEFA6CE007A5630 /* high_importance.png in Resources */ = {isa = PBXBuildFile; fileRef = 43168C221CEFA6CE007A5630 /* high_importance.png */; };
 		433EBD5C1CED5C7700623B66 /* up2_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 433EBD5B1CED5C7700623B66 /* up2_filled.png */; };
+		4344FF691D11D3DF00C0C6F7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344FF681D11D3DF00C0C6F7 /* Reachability.m */; };
 		439BA0A51CEE5320005448E8 /* ListContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A41CEE5320005448E8 /* ListContainerViewController.m */; };
 		439BA0A71CEE5FC1005448E8 /* GreetingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439BA0A61CEE5FC1005448E8 /* GreetingView.xib */; };
 		439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A91CEE5FE5005448E8 /* GreetingView.m */; };
@@ -49,6 +50,8 @@
 /* Begin PBXFileReference section */
 		43168C221CEFA6CE007A5630 /* high_importance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = high_importance.png; sourceTree = "<group>"; };
 		433EBD5B1CED5C7700623B66 /* up2_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up2_filled.png; sourceTree = "<group>"; };
+		4344FF671D11D3DF00C0C6F7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4344FF681D11D3DF00C0C6F7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		439BA0A31CEE5320005448E8 /* ListContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListContainerViewController.h; sourceTree = "<group>"; };
 		439BA0A41CEE5320005448E8 /* ListContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListContainerViewController.m; sourceTree = "<group>"; };
 		439BA0A61CEE5FC1005448E8 /* GreetingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingView.xib; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 				B3A4232F1CDBB996006E0D1B /* Service.m */,
 				439BA0A81CEE5FE5005448E8 /* GreetingView.h */,
 				439BA0A91CEE5FE5005448E8 /* GreetingView.m */,
+				43F2A24F1D10A67C00E8F8CE /* Reachability */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -204,6 +208,15 @@
 				439BA0A41CEE5320005448E8 /* ListContainerViewController.m */,
 			);
 			name = Containers;
+			sourceTree = "<group>";
+		};
+		43F2A24F1D10A67C00E8F8CE /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				4344FF671D11D3DF00C0C6F7 /* Reachability.h */,
+				4344FF681D11D3DF00C0C6F7 /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		5CB608B59F924A877452E561 /* Pods */ = {
@@ -316,6 +329,7 @@
 				TargetAttributes = {
 					B3A4230B1CDBABDB006E0D1B = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = PU9PMM99H2;
 					};
 				};
 			};
@@ -441,6 +455,7 @@
 				43D016A11CEEB5BF007C3B29 /* WebViewController.m in Sources */,
 				439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */,
 				B35DEBC41CDBEFE10069E358 /* CustomPinView.m in Sources */,
+				4344FF691D11D3DF00C0C6F7 /* Reachability.m in Sources */,
 				B3A423141CDBABDB006E0D1B /* AppDelegate.m in Sources */,
 				B3A423111CDBABDB006E0D1B /* main.m in Sources */,
 				B35DEBB21CDBCEA60069E358 /* AddServiceTableViewController.m in Sources */,

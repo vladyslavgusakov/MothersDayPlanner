@@ -18,7 +18,7 @@
     [aCoder encodeObject:self.serviceImage forKey:@"serviceImage"];
     [aCoder encodeObject:self.fromTime forKey:@"fromTime"];
     [aCoder encodeObject:self.toTime forKey:@"toTime"];
-    [aCoder encodeObject:self.note forKey:@"note"];
+//    [aCoder encodeObject:self.note forKey:@"note"];
     [aCoder encodeObject:self.website forKey:@"website"];
     [aCoder encodeDouble:self.latitude forKey:@"latitude"];
     [aCoder encodeDouble:self.longitude forKey:@"longitude"];
@@ -34,7 +34,7 @@
         self.serviceImage             = [aDecoder decodeObjectForKey:@"serviceImage"];
         self.fromTime                 = [aDecoder decodeObjectForKey:@"fromTime"];
         self.toTime                   = [aDecoder decodeObjectForKey:@"toTime"];
-        self.note                     = [aDecoder decodeObjectForKey:@"note"];
+//        self.note                     = [aDecoder decodeObjectForKey:@"note"];
         self.website                  = [aDecoder decodeObjectForKey:@"website"];
         self.latitude                 = [aDecoder decodeDoubleForKey:@"latitude"];
         self.longitude                = [aDecoder decodeDoubleForKey:@"longitude"];

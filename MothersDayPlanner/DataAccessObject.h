@@ -7,13 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Reachability.h"
 
 @interface DataAccessObject : NSObject
 
 @property (nonatomic, strong) NSMutableArray *serviceList;
+@property (nonatomic, strong) Reachability *internetReachability;
 
 + (instancetype)sharedInstance;
 - (void)save;
 - (void)fetchAllDataFromUserDefaults;
+- (void)trackFirstLaunch;
+- (BOOL)validInternetConnectionExists;
 
 @end

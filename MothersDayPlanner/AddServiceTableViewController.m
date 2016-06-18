@@ -10,6 +10,7 @@
 #import "MapsViewController.h"
 #import "CustomMarker.h"
 #import "Constants.h"
+#import "DataAccessObject.h"
 @import GoogleMaps;
 
 #define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
@@ -27,13 +28,14 @@
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSDictionary            *dictionaryOfSearchResults;
 @property (nonatomic, strong) NSMutableArray          *arrayOfSearchMarkers;
-
+@property (nonatomic, strong) DataAccessObject        *dao;
 
 @end
 
 @implementation AddServiceTableViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dao = [DataAccessObject sharedInstance];
     [self getCurrentLocation];
     self.servicesList  = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
     self.serviceImages = @{
@@ -53,6 +55,15 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)presentAlertForBadInternet {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Internet Required" message:@"Please check your internet connection and try again." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //alert controller dismisses itself
+    }];
+    [alertController addAction:dismissAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - Table View Data Source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -70,10 +81,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.activityIndicator startAnimating];
-    NSLog(@"Lat %f , long = %f",self.coordinate.latitude, self.coordinate.longitude);
-    [self fetchPlacesBasedOnServiceType:indexPath];
-    
+    if ([self.dao validInternetConnectionExists]) {
+        [self.activityIndicator startAnimating];
+//        NSLog(@"Lat %f , long = %f",self.coordinate.latitude, self.coordinate.longitude);
+        [self fetchPlacesBasedOnServiceType:indexPath];
+    } else {
+        [self presentAlertForBadInternet];
+    }
 }
 
 - (void)createActivityIndicator {
@@ -99,7 +113,7 @@
                                                       NSURLResponse * _Nullable response,
                                                       NSError * _Nullable error) {
         if ( error ) {
-            NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
+           // NSLog(@"Error : %@, %@",error.localizedDescription, error.userInfo);
             [self presentAlertToUser];
         } else {
             dispatch_async(dispatch_get_main_queue(),^{
@@ -137,6 +151,7 @@
         searchMarker.placeId       = [place_idArray objectAtIndex:i];
         [self.arrayOfSearchMarkers addObject:searchMarker];
     }
+    
 }
 
 #pragma mark - Lazy Loading
@@ -161,7 +176,7 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Error = %@, %@", error.localizedDescription, error.userInfo);
+    //NSLog(@"Error = %@, %@", error.localizedDescription, error.userInfo);
     [self presentAlertToUser];
 }
 

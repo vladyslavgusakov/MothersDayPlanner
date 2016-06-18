@@ -10,5 +10,4 @@
 
 @interface GreetingView : UIView
 
-
 @end
