@@ -53,3 +53,4 @@ fastlane/report.xml
 fastlane/screenshots
 
 MothersDayPlanner/Constants.h
+.DS_Store
