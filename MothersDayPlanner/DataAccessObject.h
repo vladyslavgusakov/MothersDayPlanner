@@ -12,7 +12,7 @@
 @interface DataAccessObject : NSObject
 
 @property (nonatomic, strong) NSMutableArray *serviceList;
-@property (nonatomic, strong) Reachability *internetReachability;
+@property (nonatomic, strong) Reachability   *internetReachability;
 
 + (instancetype)sharedInstance;
 - (void)save;

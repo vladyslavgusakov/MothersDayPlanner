@@ -17,5 +17,6 @@
 @property (nonatomic, strong) Service        *serviceInfo;
 @property (nonatomic, strong) NSDictionary   *dictionaryOfPlaceSearchResults;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) NSString       *pinImage;
 
 @end

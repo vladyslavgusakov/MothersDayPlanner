@@ -148,8 +148,6 @@
 				43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */,
 				B3A4232E1CDBB996006E0D1B /* Service.h */,
 				B3A4232F1CDBB996006E0D1B /* Service.m */,
-				439BA0A81CEE5FE5005448E8 /* GreetingView.h */,
-				439BA0A91CEE5FE5005448E8 /* GreetingView.m */,
 				43F2A24F1D10A67C00E8F8CE /* Reachability */,
 			);
 			name = Model;
@@ -173,6 +171,8 @@
 				B35DEBC01CDBEFE10069E358 /* CustomMarker.m */,
 				B35DEBC11CDBEFE10069E358 /* CustomPinView.h */,
 				B35DEBC21CDBEFE10069E358 /* CustomPinView.m */,
+				439BA0A81CEE5FE5005448E8 /* GreetingView.h */,
+				439BA0A91CEE5FE5005448E8 /* GreetingView.m */,
 			);
 			name = CustomControllers;
 			sourceTree = "<group>";

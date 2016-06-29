@@ -12,7 +12,6 @@
 #import "Service.h"
 #import "WebViewController.h"
 #import "Reachability.h"
-#import "GreetingView.h"
 
 #define MIDDLE_VIEW_X CGRectGetMidX(self.view.bounds)
 #define MIDDLE_VIEW_Y CGRectGetMidY(self.view.bounds)
@@ -22,6 +21,8 @@
 @property (nonatomic, strong) DataAccessObject *dao;
 //@property (nonatomic, strong) CALayer          *layer;
 @property (nonatomic) Reachability *internetReachability;
+@property (nonatomic, strong) UIImageView *arrowImageView;
+@property (nonatomic, strong) UIImageView *tapToAddImageView;
 
 @end
 
@@ -46,11 +47,16 @@
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 //    [self testInternetConnection];
+    if (self.dao.serviceList.count == 0) {
+        [self createAddProductsView];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 //    [self.layer removeFromSuperlayer];
+    [self.arrowImageView removeFromSuperview];
+    [self.tapToAddImageView removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,6 +77,17 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void) createAddProductsView {
+    UIWindow* mainWindow = [[UIApplication sharedApplication] keyWindow];
+    self.arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(mainWindow.bounds.size.width-70, 70, 50, 50)];
+    UIImage *arrowImg = [UIImage imageNamed:@"up2.png"];
+    self.arrowImageView.image = arrowImg;
+    [mainWindow insertSubview:self.arrowImageView aboveSubview:mainWindow];
+    self.tapToAddImageView = [[UIImageView alloc] initWithFrame:CGRectMake(mainWindow.bounds.size.width-70-50-143+35, 90, 143, 40)];
+    self.tapToAddImageView.image = [UIImage imageNamed:@"taptoadd3.png"];
+    [mainWindow insertSubview:self.tapToAddImageView aboveSubview:mainWindow];
+}
+
 #pragma mark - First Launch Greeting
 
 - (BOOL)isFirstLaunchEver {
@@ -83,14 +100,16 @@
 }
 
 - (void)presentView {
-#warning Vlad... Greeting View gets displayed here on first launch
-    GreetingView *greet = [[[NSBundle mainBundle] loadNibNamed:@"GreetingView" owner:self options:kNilOptions] objectAtIndex:0];
-    greet.center = self.view.center;
+#warning add intro here
     
-    [self.view addSubview:greet];
+//    TutorialViewController *tutorialView = [[[NSBundle mainBundle] loadNibNamed:@"TutorialViewController" owner:self options:kNilOptions] objectAtIndex:0];
+//    greet.frame = self.view.frame;
+//    
+//    [self.view addSubview:tutorialView];
 }
 
 #pragma mark - CA Prompt
+
 //- (void)animateLayer {
 //    if (self.dao.serviceList.count == 0) {
 //        [self createLayer];

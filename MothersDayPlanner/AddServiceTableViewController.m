@@ -100,6 +100,7 @@
 #pragma mark - API Requests
 - (void)fetchPlacesBasedOnServiceType: (NSIndexPath*)indexPath {
     self.tableView.allowsSelection = NO;
+    self.tableView.scrollEnabled   = NO;
     NSURLSession *session = [NSURLSession sharedSession];
     NSURL        *url     = [NSURL URLWithString:[NSString stringWithFormat
                                                   :@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%lf,%lf&radius=6000&types=%@&key=%@",
@@ -122,6 +123,7 @@
                 [self.activityIndicator stopAnimating];
                 [self performSegueWithIdentifier:@"showMapList" sender:nil];
                 self.tableView.allowsSelection = YES;
+                self.tableView.scrollEnabled   = YES;
             });
         }
     }] resume];
@@ -132,21 +134,31 @@
     NSArray *tempGeo          = [result valueForKey:@"geometry"];
     NSArray *tempLoc          = [tempGeo valueForKey:@"location"];
     NSArray *nameArray        = [result valueForKey:@"name"];
-    NSArray *iconArray        = [result valueForKey:@"icon"];
+    NSArray *openingHours     = [result valueForKey:@"opening_hours"];
+    NSArray *openOrClosed     = [openingHours valueForKey:@"open_now"];
     NSArray *latitudeArray    = [tempLoc valueForKey:@"lat"];
     NSArray *longitudeArray   = [tempLoc valueForKey:@"lng"];
     NSArray *place_idArray    = [result valueForKey:@"place_id"];
     self.arrayOfSearchMarkers = [NSMutableArray new];
     
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//    NSLog(@"%@",result);
+    NSLog(@"%@",openOrClosed);
+    
     for (int i = 0 ; i < latitudeArray.count; i++) {
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[[latitudeArray objectAtIndex:i] doubleValue]
                                                                 longitude:[[longitudeArray objectAtIndex:i] doubleValue] zoom:12];
-        NSString *iconString = [NSString stringWithFormat:@"%@",[iconArray objectAtIndex:i]];
         CustomMarker *searchMarker = [[CustomMarker alloc] init];
         searchMarker.position      = camera.target;
         searchMarker.title         = [NSString stringWithFormat:@"%@",[nameArray objectAtIndex:i]];
-        searchMarker.snippet       = @"NYC";
-        searchMarker.image         = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:iconString]]];
+        if ([[openOrClosed objectAtIndex:i]  isEqual: @1]) {
+            searchMarker.snippet       = @"Open Now!";
+        } else {
+            searchMarker.snippet       = @"Closed :(";
+        }
+        
+        searchMarker.image         = [UIImage imageNamed:self.servicesList[indexPath.row]];
         searchMarker.icon          = [GMSMarker markerImageWithColor:[UIColor purpleColor]];
         searchMarker.placeId       = [place_idArray objectAtIndex:i];
         [self.arrayOfSearchMarkers addObject:searchMarker];
@@ -177,7 +189,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     //NSLog(@"Error = %@, %@", error.localizedDescription, error.userInfo);
-    [self presentAlertToUser];
+//    [self presentAlertToUser];
 }
 
 #pragma mark - Location
@@ -203,6 +215,7 @@
     MapsViewController *mapsVC = (MapsViewController*)segue.destinationViewController;
     NSIndexPath *indexPath     = [self.tableView indexPathForSelectedRow];
     mapsVC.serviceImage        = [self.serviceImages valueForKey:self.servicesList[indexPath.row]];
+    mapsVC.pinImage            = self.servicesList[indexPath.row];
     mapsVC.mapView.camera      = [GMSCameraPosition cameraWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude zoom:15];
     mapsVC.dictionaryOfSearchResults = self.dictionaryOfSearchResults;
     mapsVC.arrayOfSearchMarkers      = self.arrayOfSearchMarkers;

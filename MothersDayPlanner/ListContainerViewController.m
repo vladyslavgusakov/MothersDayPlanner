@@ -48,7 +48,7 @@
     
     CustomMarker *marker = [self.arrayOfPlaces objectAtIndex:indexPath.row];
     cell.textLabel.text  = marker.title;
-    cell.imageView.image = marker.icon;
+    cell.imageView.image = [UIImage imageNamed:self.pinImage];
     
     return cell;
 }

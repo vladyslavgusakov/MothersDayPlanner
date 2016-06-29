@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSString         *placeToSearch;
 @property (nonatomic, strong) Service          *serviceInfo;
 @property (nonatomic, strong) DataAccessObject *dao;
+@property (nonatomic, strong) UIImageView      *markerImage;
 
 @end
 
@@ -39,6 +40,17 @@
     [self setMapviewInitialSettings];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    for (CustomMarker *pin in self.arrayOfSearchMarkers) { //drops pins on map
+        pin.appearAnimation = kGMSMarkerAnimationPop;
+        pin.iconView = self.markerImage;
+        pin.map      = self.mapView;
+    }
+    
+}
+
 - (void) setMapviewInitialSettings {
     self.mapView.myLocationEnabled         = YES;
     self.mapView.settings.compassButton    = YES;
@@ -47,9 +59,17 @@
     self.mapView.hidden                    = NO;
     self.ListContainer.hidden              = YES;
     self.mapView.camera = [GMSCameraPosition cameraWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude zoom:15];
-    for (CustomMarker *pin in self.arrayOfSearchMarkers) { //drops pins on map
-        pin.map = self.mapView;
-    }
+    [self createImageForMarker];
+//        for (CustomMarker *pin in self.arrayOfSearchMarkers) { //drops pins on map
+//            pin.appearAnimation = kGMSMarkerAnimationPop;
+//            pin.iconView = self.markerImage;
+//            pin.map      = self.mapView;
+//        }
+}
+
+- (void)createImageForMarker {
+    self.markerImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.pinImage]];
+    self.markerImage.frame = CGRectMake(0, 0, 35, 35);
 }
 
 #pragma mark - API Requests
@@ -85,6 +105,24 @@
     infoWindow.titleLabel.text    = marker.title;
     infoWindow.subTitleLabel.text = marker.snippet;
     infoWindow.leftImage.image    = marker.image;
+    /////
+    
+    infoWindow.backgroundColor = [UIColor clearColor];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = infoWindow.bounds;
+    gradient.colors = [NSArray arrayWithObjects: (id)[[UIColor purpleColor] CGColor], (id)[[UIColor colorWithRed:1 green:0.565 blue:0.766 alpha:1] CGColor], nil];
+    [infoWindow.layer insertSublayer:gradient atIndex:0];
+    
+    if ([infoWindow.subTitleLabel.text isEqualToString:@"Open Now!"]) {
+        infoWindow.subTitleLabel.textColor = [UIColor greenColor];
+    }
+    
+//    infoWindow.backgroundColor = [UIColor redColor];
+//    UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+//    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+//    blurEffectView.frame = self.mapView.bounds;
+//    [self.mapView addSubview:blurEffectView];
+    
     return infoWindow;
 }
 
@@ -147,6 +185,7 @@
         listView.arrayOfPlaces = self.arrayOfSearchMarkers;
         listView.serviceImage  = self.serviceImage;
         listView.coordinate    = self.coordinate;
+        listView.pinImage      = self.pinImage;
     }
 }
 @end

@@ -11,6 +11,7 @@
 
 @interface MapsViewController : UIViewController
 
+@property (nonatomic, strong) NSString *pinImage;
 @property (nonatomic, strong) NSString              *serviceImage;
 @property (nonatomic, strong) NSDictionary          *dictionaryOfSearchResults;
 @property (nonatomic, strong) NSMutableArray        *arrayOfSearchMarkers;
