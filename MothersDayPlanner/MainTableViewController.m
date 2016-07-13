@@ -82,7 +82,7 @@
     self.arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(mainWindow.bounds.size.width-70, 70, 50, 50)];
     UIImage *arrowImg = [UIImage imageNamed:@"up2.png"];
     self.arrowImageView.image = arrowImg;
-    [mainWindow insertSubview:self.arrowImageView aboveSubview:mainWindow];
+    [mainWindow insertSubview:self.arrowImageView aboveSubview:mainWindow];                            //-228
     self.tapToAddImageView = [[UIImageView alloc] initWithFrame:CGRectMake(mainWindow.bounds.size.width-70-50-143+35, 90, 143, 40)];
     self.tapToAddImageView.image = [UIImage imageNamed:@"taptoadd3.png"];
     [mainWindow insertSubview:self.tapToAddImageView aboveSubview:mainWindow];
@@ -97,6 +97,9 @@
 - (void)greetNewUser {
     if ([self isFirstLaunchEver])
         [self presentView];
+}
+- (IBAction)goToSettings:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 - (void)presentView {
@@ -203,7 +206,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Service *service = [self.dao.serviceList objectAtIndex:indexPath.row];
-    
+    [self createAlertControllerForSelectedService:service];
+}
+
+- (void)createAlertControllerForSelectedService: (Service *)service {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Choose" message:@"Select an option below" preferredStyle:UIAlertControllerStyleActionSheet];
     alertController.view.backgroundColor = [UIColor whiteColor];
     alertController.view.tintColor = [UIColor purpleColor];
@@ -235,7 +241,6 @@
 }
 
 - (void)getDirectionsForService: (Service *)service {
-//    NSString *currentLocation = @"Current%20Location";
     if ([[UIApplication sharedApplication] canOpenURL:
          [NSURL URLWithString:@"comgooglemaps://"]]) {
         [[UIApplication sharedApplication] openURL:

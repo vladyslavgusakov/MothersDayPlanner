@@ -156,6 +156,9 @@
                                 <rect key="frame" x="20" y="4" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="settings_filled"/>
+                                <connections>
+                                    <action selector="goToSettings:" destination="iVL-xt-hQS" eventType="touchUpInside" id="bLe-pf-4pz"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="ouw-4C-wXw">
