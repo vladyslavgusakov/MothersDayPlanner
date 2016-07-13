@@ -42,13 +42,11 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
     for (CustomMarker *pin in self.arrayOfSearchMarkers) { //drops pins on map
         pin.appearAnimation = kGMSMarkerAnimationPop;
         pin.iconView = self.markerImage;
         pin.map      = self.mapView;
     }
-    
 }
 
 - (void) setMapviewInitialSettings {
@@ -60,11 +58,6 @@
     self.ListContainer.hidden              = YES;
     self.mapView.camera = [GMSCameraPosition cameraWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude zoom:15];
     [self createImageForMarker];
-//        for (CustomMarker *pin in self.arrayOfSearchMarkers) { //drops pins on map
-//            pin.appearAnimation = kGMSMarkerAnimationPop;
-//            pin.iconView = self.markerImage;
-//            pin.map      = self.mapView;
-//        }
 }
 
 - (void)createImageForMarker {

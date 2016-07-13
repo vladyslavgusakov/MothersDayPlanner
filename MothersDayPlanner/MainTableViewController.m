@@ -101,7 +101,6 @@
 
 - (void)presentView {
 #warning add intro here
-    
 //    TutorialViewController *tutorialView = [[[NSBundle mainBundle] loadNibNamed:@"TutorialViewController" owner:self options:kNilOptions] objectAtIndex:0];
 //    greet.frame = self.view.frame;
 //    
@@ -148,7 +147,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
     Service *service      = [self.dao.serviceList objectAtIndex:indexPath.row];
     cell.name.text        = service.placeName;
     cell.background.image = [UIImage imageNamed:service.serviceImage];
@@ -177,6 +175,10 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.dao save];
         [self.tableView reloadData];
+
+        if (self.dao.serviceList.count == 0) {
+            [self createAddProductsView];
+        }
     }];
     deleteAction.backgroundColor = [UIColor redColor];
     return @[deleteAction,editAction];

@@ -151,6 +151,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Mother's Day Planner" id="MOa-Ex-Uh6">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="MUP-aw-1ES">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXP-Dh-Gri">
+                                <rect key="frame" x="20" y="4" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="settings_filled"/>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="ouw-4C-wXw">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Lvj-PV-xzQ">
                                 <rect key="frame" x="545" y="4" width="35" height="35"/>
@@ -504,6 +511,7 @@
         <image name="back.png" width="100" height="100"/>
         <image name="note.png" width="104" height="104"/>
         <image name="save.png" width="104" height="104"/>
+        <image name="settings_filled" width="100" height="100"/>
         <image name="spa_main.jpg" width="1600" height="599"/>
         <image name="time.png" width="96" height="96"/>
     </resources>

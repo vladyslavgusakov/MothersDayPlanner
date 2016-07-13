@@ -37,22 +37,35 @@
     [super viewDidLoad];
     self.dao = [DataAccessObject sharedInstance];
     [self getCurrentLocation];
-    self.servicesList  = @[@"spa", @"florist", @"shoe_store", @"beauty_salon", @"jewelry_store", @"liquor_store", @"hair_care", @"clothing_store"];
-    self.serviceImages = @{
-                           @"spa": @"spa_main.jpg",
-                           @"florist": @"flowers.jpg",
-                           @"shoe_store" : @"shoe_store_main.png",
-                           @"beauty_salon" : @"beauty_main.png",
-                           @"jewelry_store": @"jew.jpg",
-                           @"liquor_store": @"liq.jpg",
-                           @"hair_care": @"hair.jpg",
-                           @"clothing_store" : @"clothing_main.jpg"
-                           };
+    [self createServices];
     [self createActivityIndicator];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void) createServices {
+    self.servicesList  = @[@"bar", @"beauty_salon", @"book_store", @"cafe", @"clothing_store", @"florist", @"gym", @"hair_care", @"jewelry_store", @"liquor_store", @"movie_theatre", @"museum", @"restaurant", @"shoe_store", @"shopping_mall", @"spa"];
+    
+    self.serviceImages = @{
+                           @"spa": @"spa_main.jpg",
+                           @"florist": @"flowers.jpg",
+                           @"shoe_store" : @"shoe_store_main.png",
+                           @"beauty_salon" : @"beauty_main",
+                           @"jewelry_store": @"jew.jpg",
+                           @"liquor_store": @"liq.jpg",
+                           @"hair_care": @"hair.jpg",
+                           @"clothing_store" : @"clothing_main.jpg",
+                           @"book_store": @"book_store_main",
+                           @"gym": @"gym_main",
+                           @"shopping_mall": @"shopping_mall_main",
+                           @"museum": @"museum_main",
+                           @"restaurant": @"restaurant_main",
+                           @"bar": @"bar_main",
+                           @"movie_theatre": @"movie_theatre_main",
+                           @"cafe": @"cafe_main"
+                           };
 }
 
 - (void)presentAlertForBadInternet {
@@ -88,6 +101,19 @@
     } else {
         [self presentAlertForBadInternet];
     }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    
+    if (height == 667) {
+        return 37;
+    } else
+        if (height == 568) {
+            return 31;
+        }
+    
+    return 42; // standart
 }
 
 - (void)createActivityIndicator {

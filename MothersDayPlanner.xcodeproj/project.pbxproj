@@ -15,6 +15,8 @@
 		439BA0AA1CEE5FE5005448E8 /* GreetingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 439BA0A91CEE5FE5005448E8 /* GreetingView.m */; };
 		43C3C05E1CEB8D7A00E9BC84 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3C05D1CEB8D7A00E9BC84 /* DataAccessObject.m */; };
 		43D016A11CEEB5BF007C3B29 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D016A01CEEB5BF007C3B29 /* WebViewController.m */; };
+		43FAA64F1D3446F3006B9F95 /* up2.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FAA64E1D3446F3006B9F95 /* up2.png */; };
+		43FAA6511D344919006B9F95 /* taptoadd3.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FAA6501D344919006B9F95 /* taptoadd3.png */; };
 		51A9AC9AB4AF7DFA5D7C922C /* libPods-MothersDayPlanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9121A79F0395FAF10688705 /* libPods-MothersDayPlanner.a */; };
 		B35DEBAD1CDBCBAF0069E358 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAC1CDBCBAF0069E358 /* next.png */; };
 		B35DEBAF1CDBCE440069E358 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = B35DEBAE1CDBCE440069E358 /* back.png */; };
@@ -62,6 +64,8 @@
 		43D0169F1CEEB5BF007C3B29 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		43D016A01CEEB5BF007C3B29 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		43DA66311CED1CD000C92D2E /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		43FAA64E1D3446F3006B9F95 /* up2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up2.png; sourceTree = "<group>"; };
+		43FAA6501D344919006B9F95 /* taptoadd3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taptoadd3.png; sourceTree = "<group>"; };
 		580C6AFD74138A863CC8DEEA /* Pods-MothersDayPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MothersDayPlanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-MothersDayPlanner/Pods-MothersDayPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		B35DEBAC1CDBCBAF0069E358 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
 		B35DEBAE1CDBCE440069E358 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -255,6 +259,8 @@
 				4324D64C1CEA927000EB688A /* Controller */,
 				4324D64F1CEA928000EB688A /* Delegate */,
 				B3A4231B1CDBABDB006E0D1B /* Assets.xcassets */,
+				43FAA6501D344919006B9F95 /* taptoadd3.png */,
+				43FAA64E1D3446F3006B9F95 /* up2.png */,
 				43168C221CEFA6CE007A5630 /* high_importance.png */,
 				433EBD5B1CED5C7700623B66 /* up2_filled.png */,
 				B3F2DA301CED096700ECC813 /* clothing_main.jpg */,
@@ -370,12 +376,14 @@
 				B3F2DA2D1CED053700ECC813 /* shoe_store_main.png in Resources */,
 				B35DEBAF1CDBCE440069E358 /* back.png in Resources */,
 				B35DEBCE1CDBF6300069E358 /* jew.jpg in Resources */,
+				43FAA6511D344919006B9F95 /* taptoadd3.png in Resources */,
 				B35DEBBC1CDBE4410069E358 /* time.png in Resources */,
 				B3A423341CDBC8EB006E0D1B /* add_rule.png in Resources */,
 				B3A423321CDBBE97006E0D1B /* callback_filled.png in Resources */,
 				B3A4231A1CDBABDB006E0D1B /* Main.storyboard in Resources */,
 				B3F2DA311CED096700ECC813 /* clothing_main.jpg in Resources */,
 				B35DEBC61CDBF0210069E358 /* CustomPinView.xib in Resources */,
+				43FAA64F1D3446F3006B9F95 /* up2.png in Resources */,
 				B3F2DA2F1CED08A300ECC813 /* beauty_main.png in Resources */,
 				B35DEBCA1CDBF3A40069E358 /* liq.jpg in Resources */,
 			);

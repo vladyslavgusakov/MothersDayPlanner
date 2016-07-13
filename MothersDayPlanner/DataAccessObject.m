@@ -34,11 +34,11 @@
         NSData *unarchivedData = [[NSUserDefaults standardUserDefaults] dataForKey:@"serviceListData"];
         self.serviceList = [NSKeyedUnarchiver unarchiveObjectWithData:unarchivedData];
     } else {
-        NSData *encodeObject = [NSKeyedArchiver archivedDataWithRootObject:self.serviceList];
+        NSData *encodeObject     = [NSKeyedArchiver archivedDataWithRootObject:self.serviceList];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:encodeObject forKey:@"serviceListData"];
         [defaults synchronize];
-    }
+    } 
 }
 
 - (void)trackFirstLaunch {
