@@ -21,8 +21,19 @@
     // Override point for customization after application launch.
     
     [GMSServices provideAPIKey:iOSAPIKey];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed: 0.988 green: 0.353 blue: 0.451 alpha: 1]];
+    
+//    UIColor *baseColor = [UIColor colorWithRed: 0.988 green: 0.353 blue: 0.451 alpha: 1];
+//    NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:baseColor];
+//    [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:@"themeColor"];
+//
+//    NSData *themeData = [[NSUserDefaults standardUserDefaults] objectForKey:@"themeColor"];
+//    UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:themeData];
+//    [UINavigationBar appearance].tintColor = color;
 
+    [UINavigationBar appearance].tintColor = [UIColor colorWithRed: 0.988 green: 0.353 blue: 0.451 alpha: 1];
+    
+    //255 183 116
+    
     return YES;
 }
 

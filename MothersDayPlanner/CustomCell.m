@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+//    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"themeColor"];
+//    UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+//    self.leftView.backgroundColor = color;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

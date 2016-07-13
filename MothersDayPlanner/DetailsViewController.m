@@ -21,7 +21,6 @@
 #pragma mark - IBOutlets
 @property (weak, nonatomic) IBOutlet UILabel      *fromTime;
 @property (weak, nonatomic) IBOutlet UILabel      *toTime;
-//@property (weak, nonatomic) IBOutlet UITextField  *noteTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView       *dateView;
 @property (weak, nonatomic) IBOutlet UIButton     *choose1;

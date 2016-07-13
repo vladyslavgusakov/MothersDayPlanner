@@ -96,7 +96,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.dao validInternetConnectionExists]) {
         [self.activityIndicator startAnimating];
-//        NSLog(@"Lat %f , long = %f",self.coordinate.latitude, self.coordinate.longitude);
         [self fetchPlacesBasedOnServiceType:indexPath];
     } else {
         [self presentAlertForBadInternet];
@@ -113,7 +112,7 @@
             return 31;
         }
     
-    return 42; // standart
+    return 42; // standard
 }
 
 - (void)createActivityIndicator {
@@ -156,7 +155,7 @@
 }
 
 - (void)parseAndPin {
-    NSDictionary *result      = [self.dictionaryOfSearchResults objectForKey:@"results"];
+    NSArray *result           = [self.dictionaryOfSearchResults objectForKey:@"results"];
     NSArray *tempGeo          = [result valueForKey:@"geometry"];
     NSArray *tempLoc          = [tempGeo valueForKey:@"location"];
     NSArray *nameArray        = [result valueForKey:@"name"];
@@ -170,7 +169,7 @@
     
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 //    NSLog(@"%@",result);
-    NSLog(@"%@",openOrClosed);
+//    NSLog(@"%@",openOrClosed);
     
     for (int i = 0 ; i < latitudeArray.count; i++) {
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[[latitudeArray objectAtIndex:i] doubleValue]
@@ -214,7 +213,7 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    //NSLog(@"Error = %@, %@", error.localizedDescription, error.userInfo);
+    NSLog(@"Error = %@, %@", error.localizedDescription, error.userInfo);
 //    [self presentAlertToUser];
 }
 

@@ -23,6 +23,7 @@
 @property (nonatomic) Reachability *internetReachability;
 @property (nonatomic, strong) UIImageView *arrowImageView;
 @property (nonatomic, strong) UIImageView *tapToAddImageView;
+@property (nonatomic, strong) UIColor     *themeColor;
 
 @end
 
@@ -40,8 +41,11 @@
     [self.dao fetchAllDataFromUserDefaults];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        
     });
 //    [self animateLayer];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"themeColor"];
+    self.themeColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -99,7 +103,7 @@
         [self presentView];
 }
 - (IBAction)goToSettings:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 - (void)presentView {
@@ -157,6 +161,7 @@
     cell.fromTime.text    = service.fromTime;
     cell.toTime.text      = service.toTime;
     cell.background.clipsToBounds = YES;
+    cell.leftView.backgroundColor = self.themeColor;
     
     return cell;
 }
@@ -187,6 +192,14 @@
     return @[deleteAction,editAction];
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Service *service = [self.dao.serviceList objectAtIndex:indexPath.row];
+    [self createAlertControllerForSelectedService:service];
+}
+
+#pragma mark - Helper Methods
+
 - (void)makePhoneCallWithNumber: (NSString*)phoneNumber {
     NSString *formatedNumber         = [phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *finalPhoneNumberFormat = [formatedNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
@@ -204,10 +217,6 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Service *service = [self.dao.serviceList objectAtIndex:indexPath.row];
-    [self createAlertControllerForSelectedService:service];
-}
 
 - (void)createAlertControllerForSelectedService: (Service *)service {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Choose" message:@"Select an option below" preferredStyle:UIAlertControllerStyleActionSheet];
@@ -261,7 +270,6 @@
 }
 
  #pragma mark - Navigation
-
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier isEqualToString:@"showWeb"]) {
          WebViewController *webView = (WebViewController *)segue.destinationViewController;

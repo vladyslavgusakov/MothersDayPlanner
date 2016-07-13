@@ -8,6 +8,7 @@
 
 #import "DataAccessObject.h"
 #import "Service.h"
+#import <UIKit/UIKit.h>
 
 @implementation DataAccessObject
 
@@ -45,8 +46,13 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        //sets default pink color on first launch
+        UIColor *baseColor = [UIColor colorWithRed: 0.988 green: 0.353 blue: 0.451 alpha: 1];
+        NSData *colorData  = [NSKeyedArchiver archivedDataWithRootObject:baseColor];
+        [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:@"themeColor"];
     }
 }
+
 
 #pragma mark - Test Reachability
 - (BOOL)validInternetConnectionExists {
