@@ -22,9 +22,14 @@
 - (void)drawRect:(CGRect)rect {
     self.dao = [DataAccessObject sharedInstance];
     
-    NSLog(@"width %f",self.frame.size.width / 2);
-    NSLog(@"height %f",self.frame.size.height / 2);
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"themeColor"];
+    UIColor *themeColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
 
+    if ([self.backgroundColor isEqual:themeColor]) {
+        self.layer.borderWidth = 7;
+        self.layer.borderColor = [UIColor blackColor].CGColor;
+    }
+    
     self.layer.cornerRadius = self.bounds.size.width / 2;
     self.layer.masksToBounds = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action: @selector(saveThemeColor)];
@@ -37,6 +42,8 @@
     //save theme color to NSUserDefaults
     NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:self.backgroundColor];
     [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:@"themeColor"];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"pop" object:nil];
 }
 
 
